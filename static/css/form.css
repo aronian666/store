@@ -1,0 +1,27 @@
+form {
+  display: grid;
+  gap: 1rem;
+}
+fieldset {
+  border: none;
+  padding: 0;
+  display: grid;
+  gap: .25rem;
+}
+fieldset > label {
+  font-weight: 600;
+  display: flex;
+  font-size: 0.83rem;
+  align-items: center;
+} 
+input, select {
+  border: unset;
+  border-radius: .25rem;
+  outline-color: rgb(84 105 212 / 0.5);
+  padding: .5rem 1rem;
+  box-shadow: rgba(60, 66, 87, 0.16) 0px 0px 0px 1px
+}
+
+form p.error {
+  color: tomato;
+}

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,300&display=swap');
+@import "./form.css";
+@import "./flex.css";
+@import "./grid.css";
+@import "./Table.css";
+:root {
+  --purple: rgb(84, 105, 212);
+  --gray: rgb(220, 220, 220);
+}
+html {
+  font-size: 14px;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", Lato, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+a.button, button {
+  padding: .5rem 1rem;
+  border-radius: .25rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a.button.inverted, button.inverted {
+  color: white;
+  background-color: var(--color);
+}
+a.button.holed, button.holed {
+  border: 1px solid var(--color, var(--gray));
+  background-color: white;
+  color: var(--color, var(--gray));
+}
+a.button.holed:hover, button.holed:hover {
+  background-color:var(--color, var(--gray));
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  
+}
+a:hover {
+  text-decoration: underline;
+  color: deeppink;
+}
+p {
+  font-size: .8rem;
+}
+.gap {
+  gap: .5rem;
+}
+.panel {
+  padding: var(--size, 1rem);
+  box-shadow: 0 -.125rem 0 var(--color, var(--gray));
+  border: 1px solid var(--color, var(--gray));
+  border-radius: .25rem;
+  gap: var(--gap, 1rem);
+}
+.panel p {
+  font-size: .9rem;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print, #print * {
+    visibility: visible;
+    font-size: 0.6rem;
+    --size: 0.25rem;
+    --gap: 0.25rem;
+  }
+  #print {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+  html, body {margin: 0; height: 100%; overflow: hidden}
+}
