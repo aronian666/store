@@ -1,7 +1,5 @@
 <script>
   import Info from "./Info.svelte";
-
-  export let icon;
   export let input;
   export let items;
   export let name;
@@ -19,7 +17,6 @@
     {/if}
   </label>
   <div>
-    <i class={icon} />
     <select
       {name}
       id={name}
@@ -40,13 +37,6 @@
 <style>
   div {
     position: relative;
-  }
-  i {
-    position: absolute;
-    width: 1.5rem;
-    display: grid;
-    place-content: center;
-    aspect-ratio: 1/1;
   }
   select {
     width: 100%;

@@ -1,5 +1,6 @@
 <script>
   import { getContext } from "svelte";
+  import Icon from "./Icon.svelte";
 
   let order = getContext("order");
   let active = true;
@@ -7,7 +8,7 @@
 
 <aside class:active class="flex column gap">
   <button on:click={(e) => (active = !active)}
-    ><i class="fas fa-shopping-cart" />
+    ><Icon icon="shopping_cart" />
   </button>
   <div class="content grid" style="gap: 1rem">
     <h3>

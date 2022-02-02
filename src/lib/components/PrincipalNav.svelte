@@ -1,24 +1,36 @@
 <script>
   import { page } from "$app/stores";
   import ActiveRecord from "$lib/models/ActiveRecord";
+  import Icon from "./Icon.svelte";
 
   const menu = [
-    { href: "/", class: "fas fa-home", text: "Inicio" },
-    { href: "/products", class: "far fa-list-alt", text: "Productos" },
-    { href: "/sales", class: "fas fa-money-check-alt", text: "Vender" },
+    { href: "/", text: "Inicio", icon: "home" },
+    {
+      href: "/products",
+
+      text: "Productos",
+      icon: "article",
+    },
+    {
+      href: "/sales",
+
+      text: "Vender",
+      icon: "work_outline",
+    },
     {
       href: "/orders",
-      class: "far fa-chart-bar",
+
       text: "Reporte de ventas",
+      icon: "storefront",
     },
-    { href: "/groups", class: "fas fa-object-group", text: "Grupos" },
+    { href: "/groups", icon: "grid_view", text: "Grupos" },
     {
       href: "/cart",
-      class: "fas fa-shopping-cart",
+      icon: "shopping_cart",
       text: "Carrito de venta",
     },
-    { href: "/cuts", class: "fas fa-cut", text: "Cortar" },
-    { href: "/profile", class: "fas fa-users", text: "Usuarios" },
+    { href: "/cuts", icon: "content_cut", text: "Cortar" },
+    { href: "/profile", icon: "person", text: "Usuarios" },
   ];
   let show = false;
 </script>
@@ -36,13 +48,14 @@
             href={item.href}
             class:active={$page.url.pathname === item.href}
           >
-            <i class={item.class} /><span>{item.text}</span>
+            <Icon icon={item.icon} />
+            <span>{item.text}</span>
           </a>
         {/each}
       </div>
     </div>
     <a href="/" on:click={(e) => ActiveRecord.get("/log_out")}>
-      <i class="fas fa-sign-out-alt" /><span>Salir</span>
+      <Icon icon="logout" /><span>Salir</span>
     </a>
   </nav>
 </header>
@@ -85,11 +98,6 @@
   a:hover {
     color: var(--blue);
     background-color: #fafafa;
-  }
-  a i {
-    display: grid;
-    place-content: center;
-    font-size: 1.75rem;
   }
   a span {
     font-size: 1.3rem;

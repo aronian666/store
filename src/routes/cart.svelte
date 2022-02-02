@@ -37,10 +37,10 @@
               name={`prodict[${i}][unit][name]`}
               input={cartProduct.unitProduct.unit.name}
               readonly
-              icon="fab fa-unity"
+              icon="widgets"
             />
             <Fieldset
-              icon="fas fa-layer-group"
+              icon="format_align_justify"
               type="number"
               title="Cantidad"
               bind:input={cartProduct.options.quantity}
@@ -51,12 +51,12 @@
               name={`product[${i}][unit][unitPrice]`}
               input={cartProduct.unitPrice}
               readonly
-              icon="fas fa-dollar-sign"
+              icon="attach_money"
             />
 
             {#if cartProduct.unitProduct.unit.measures?.width}
               <Fieldset
-                icon="fas fa-arrows-alt-h"
+                icon="trending_flat"
                 title="Altura"
                 type="number"
                 bind:input={cartProduct.options.measures.width}
@@ -67,7 +67,7 @@
             {#if cartProduct.unitProduct.unit.measures?.height}
               <Fieldset
                 title={"Largo"}
-                icon="fas fa-arrows-alt-v"
+                icon="height"
                 type="number"
                 bind:input={cartProduct.options.measures.height}
                 name={`pruduct[${i}][height]`}

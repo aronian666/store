@@ -101,13 +101,13 @@
         name="options[price]"
         type="number"
         step="0.01"
-        icon="fas fa-dollar-sign"
+        icon="attach_money"
         title="Precio"
         bind:input={cartProduct.options.price}
         min="0"
       />
       <Fieldset
-        icon="fas fa-layer-group"
+        icon="format_align_justify"
         type="number"
         name="options[quantity]"
         title="Cantidad"
@@ -119,8 +119,8 @@
       <div class="grid auto-fit gap" style="--size: 150px">
         {#if cartProduct.unitProduct.unit.measures?.width}
           <Fieldset
-            icon="fas fa-arrows-alt-h"
             type="number"
+            icon="trending_flat"
             name="options[measures][width]"
             step="0.01"
             title="Alto"
@@ -130,7 +130,7 @@
         {/if}
         {#if cartProduct.unitProduct.unit.measures?.height}
           <Fieldset
-            icon="fas fa-arrows-alt-v"
+            icon="height"
             type="number"
             title="Largo"
             step="0.01"

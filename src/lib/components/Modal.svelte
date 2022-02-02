@@ -2,6 +2,7 @@
   import { onMount, setContext } from "svelte";
   import { writable } from "svelte/store";
   import { scale } from "svelte/transition";
+  import Icon from "./Icon.svelte";
   import Loading from "./Loading.svelte";
   export let handler;
   export let exit = false;
@@ -29,7 +30,9 @@
   {:else}
     <section id="modal">
       <slot {handler} />
-      <img src="/x.svg" alt="X" on:click={handler} />
+      <span on:click={handler}>
+        <Icon icon="close" />
+      </span>
     </section>
   {/if}
 </div>
@@ -52,15 +55,15 @@
     border-radius: 0.75rem;
     position: relative;
   }
-  img {
+  span {
     position: absolute;
     right: 0.5rem;
-    top: 0.5rem;
+    top: 0;
     cursor: pointer;
     width: 1.125rem;
     transition: 0.1s;
   }
-  img:hover {
+  span:hover {
     transform: scale(1.2);
   }
 </style>

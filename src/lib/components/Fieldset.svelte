@@ -1,4 +1,6 @@
 <script>
+  import Icon from "./Icon.svelte";
+
   import Info from "./Info.svelte";
 
   export let icon;
@@ -19,7 +21,9 @@
     {/if}
   </label>
   <div>
-    <i class={icon} />
+    <span>
+      <Icon {icon} />
+    </span>
     <input
       {name}
       id={name}
@@ -38,19 +42,16 @@
   div {
     position: relative;
   }
-  div:hover i {
+  div:hover span {
     display: none;
   }
-  i {
+  span {
     position: absolute;
     height: 100%;
     aspect-ratio: 1/1;
     display: grid;
     right: 0;
     place-content: center;
-  }
-  i:hover {
-    display: none;
   }
   input {
     width: 100%;

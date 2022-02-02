@@ -1,4 +1,6 @@
 <script>
+  import Icon from "./Icon.svelte";
+
   export let items;
   export let count = 10;
   export let paginate = [];
@@ -32,7 +34,7 @@
           if (page > 0) page--;
         }}
       >
-        <i class="fas fa-backward" />
+        <Icon icon="west" />
       </li>
       {#if page - half > 0}
         <li on:click={(e) => (page = 0)}>1</li>
@@ -60,7 +62,7 @@
           if (page < pages) page++;
         }}
       >
-        <i class="fas fa-forward" />
+        <Icon icon="east" />
       </li>
     </ul>
   </section>
@@ -73,10 +75,12 @@
     list-style-type: none;
   }
   li {
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     cursor: pointer;
+    display: grid;
+    place-content: center;
   }
   .active {
     background-color: black;
