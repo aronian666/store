@@ -27,45 +27,48 @@
 </script>
 
 {#if pages > 1}
-  <section class="flex gap">
-    <ul>
-      <li
-        on:click={(e) => {
-          if (page > 0) page--;
-        }}
-      >
-        <Icon icon="west" />
-      </li>
-      {#if page - half > 0}
-        <li on:click={(e) => (page = 0)}>1</li>
-      {/if}
-    </ul>
-    {#if page - half > 0}
-      <span>...</span>
-    {/if}
-    <ul>
-      {#each rest as index}
-        <li class:active={index === page} on:click={(e) => (page = index)}>
-          {index + 1}
+  <div class="flex space-between gap">
+    <section class="flex gap">
+      <ul>
+        <li
+          on:click={(e) => {
+            if (page > 0) page--;
+          }}
+        >
+          <Icon icon="west" />
         </li>
-      {/each}
-    </ul>
-    {#if page + maxPages - half + 1 < pages}
-      <span>...</span>
-    {/if}
-    <ul>
-      {#if page + maxPages - half + 1 < pages}
-        <li on:click={(e) => (page = pages - 1)}>{pages}</li>
+        {#if page - half > 0}
+          <li on:click={(e) => (page = 0)}>1</li>
+        {/if}
+      </ul>
+      {#if page - half > 0}
+        <span>...</span>
       {/if}
-      <li
-        on:click={(e) => {
-          if (page < pages) page++;
-        }}
-      >
-        <Icon icon="east" />
-      </li>
-    </ul>
-  </section>
+      <ul>
+        {#each rest as index}
+          <li class:active={index === page} on:click={(e) => (page = index)}>
+            {index + 1}
+          </li>
+        {/each}
+      </ul>
+      {#if page + maxPages - half + 1 < pages}
+        <span>...</span>
+      {/if}
+      <ul>
+        {#if page + maxPages - half + 1 < pages}
+          <li on:click={(e) => (page = pages - 1)}>{pages}</li>
+        {/if}
+        <li
+          on:click={(e) => {
+            if (page < pages) page++;
+          }}
+        >
+          <Icon icon="east" />
+        </li>
+      </ul>
+    </section>
+    <p>{paginate.length} de {items.length} elementos</p>
+  </div>
 {/if}
 
 <style>
@@ -73,6 +76,7 @@
     display: flex;
     gap: 0.5rem;
     list-style-type: none;
+    padding: 0;
   }
   li {
     padding: 0.25rem 0.75rem;

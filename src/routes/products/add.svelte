@@ -20,7 +20,8 @@
 
 <div class="flex wrap gap">
   <section class="panel grid">
-    <h2>Actualizar y agregar productos</h2>
+    <h2>Agregar productos</h2>
+    <p>Utilice esto solo para agregar nuevos productos.</p>
     <input type="file" id="update" />
     <button on:click={Product.getFormat} class="holed" style="--color: red"
       >Descargar formato</button

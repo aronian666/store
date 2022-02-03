@@ -32,6 +32,7 @@
   ]}
 >
   <Search items={filtered} bind:searched />
+  <button on:click={(e) => Product.export(searched)}>Exportar</button>
 </Filter>
 <table>
   <thead>

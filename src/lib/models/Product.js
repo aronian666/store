@@ -31,10 +31,9 @@ export default class Product extends ActiveRecord {
     const units = Array(4).fill(0).map((a, b) => `UNIDAD ${b + 1}`)
     const buyPrices = Array(4).fill(0).map((a, b) => `PRECIO DE COMPRA UNIDAD ${b + 1}`)
     const sellPrices = Array(4).fill(0).map((a, b) => `PRECIO DE VENTA UNIDAD ${b + 1}`)
-    const equivalents = Array(4).fill(0).map((a, b) => `EQUIVALENCIA ${b + 1}`)
     const otherSellPrices = Array(4).fill(0).map((a, b) => `PRECIO DE VENTA JULIACA UNIDAD ${b + 1}`)
     const data = [
-      ["CATEGORIA", "CODIGO", "DESCRIPCION", ...units, ...buyPrices, ...sellPrices, ...otherSellPrices, ...equivalents]
+      ["CATEGORIA", "DESCRIPCION", ...units, ...buyPrices, ...sellPrices, ...otherSellPrices]
     ]
     const worksheet = utils.aoa_to_sheet(data)
     utils.book_append_sheet(workbook, worksheet, "Productos")
@@ -45,7 +44,6 @@ export default class Product extends ActiveRecord {
       const product = new Product({
         name: excelProduct['DESCRIPCION'],
         category: new Category({ name: excelProduct['CATEGORIA'] }),
-        code: excelProduct["CODIGO"]
       })
       const units = Array(4).fill(0).map((a, index) => excelProduct[`UNIDAD ${index + 1}`]).filter((unit) => unit && reduceString(unit) !== "");
       product.unitProducts = units.map((u, index) => {
@@ -58,5 +56,49 @@ export default class Product extends ActiveRecord {
     })
 
     return super.send({ action: "/products/add.json", method: "post" }, { products })
+  }
+  static export(products = []) {
+    const workbook = utils.book_new();
+    const columnLengths = [
+      { wch: 20 },
+      { wch: 15 },
+      { wch: 40 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 }, // end of units
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 }, // end of buy prices
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 }, // end of sell prices
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 }, // end of equivalents
+      { wch: 10 },
+    ]
+    const units = Array(4).fill(0).map((a, b) => `UNIDAD ${b + 1}`)
+    const buyPrices = Array(4).fill(0).map((a, b) => `PRECIO DE COMPRA UNIDAD ${b + 1}`)
+    const sellPrices = Array(4).fill(0).map((a, b) => `PRECIO DE VENTA UNIDAD ${b + 1}`)
+    const otherSellPrices = Array(4).fill(0).map((a, b) => `PRECIO DE VENTA JULIACA UNIDAD ${b + 1}`)
+    const data = [
+      ["CODIGO", "CATEGORIA", "DESCRIPCION", ...units, ...buyPrices, ...sellPrices, ...otherSellPrices]
+    ]
+    products.forEach(product => {
+      const units = Array(4).fill(0).map((a, b) => product.unitProducts[b]?.unit.name)
+      const buyPrices = Array(4).fill(0).map((a, b) => product.unitProducts[b]?.buyPrice)
+      const sellPrices = Array(4).fill(0).map((a, b) => product.unitProducts[b]?.sellPrice)
+      const otherSellPrices = Array(4).fill(0).map((a, b) => product.unitProducts[b]?.otherPrice)
+      const row = [product._id, product.category.name, product.name, ...units, ...buyPrices, ...sellPrices, ...otherSellPrices]
+      data.push(row)
+    })
+    const worksheet = utils.aoa_to_sheet(data)
+    worksheet["!cols"] = columnLengths
+    utils.book_append_sheet(workbook, worksheet, "Productos")
+    writeFile(workbook, 'Productos.xlsx');
   }
 }
