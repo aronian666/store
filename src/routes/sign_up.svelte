@@ -9,15 +9,14 @@
 
 <script>
   import Fieldset from "$lib/components/Fieldset.svelte";
-  import ActiveRecord from "$lib/models/ActiveRecord";
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
   let user = {
     name: "",
     email: "",
     password: "",
     repeat_password: "",
   };
-  let errors = "";
   onMount(() => {
     const input = document.getElementById("user[repeat_password]");
     function validateField() {
@@ -27,17 +26,14 @@
     }
     input.oninput = validateField;
   });
-  const submit = async (e) => {
-    const { error, data } = await ActiveRecord.send(e.target, { user });
-    return (errors = data.error);
-  };
+  $: error = $page.url.searchParams.get("error");
 </script>
 
 <svelte:head><title>Registrate</title></svelte:head>
 <div class="center">
   <div class="panel">
     <h1>Registrate</h1>
-    <form action="/sign_up" method="post" on:submit|preventDefault={submit}>
+    <form action="/sign_up.json" method="post">
       <Fieldset
         title="Nombre"
         bind:input={user.name}
@@ -73,7 +69,9 @@
         minlength="6"
         info="Las contraseñas deben de coincidir."
       />
-      <p class="error">{errors}</p>
+      {#if error}
+        <p class="error">{error}</p>
+      {/if}
       <button class="inverted" style="--color: var(--purple)" type="submit"
         >Registrarse</button
       >

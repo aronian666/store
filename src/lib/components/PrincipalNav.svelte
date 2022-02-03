@@ -57,7 +57,7 @@
         {/each}
       </div>
     </div>
-    <a href="/" on:click={(e) => ActiveRecord.get("/log_out")}>
+    <a href="/log_out.json" rel="external">
       <Icon icon="logout" /><span>Salir</span>
     </a>
   </nav>

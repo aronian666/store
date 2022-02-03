@@ -7,22 +7,19 @@
 
 <script>
   import Fieldset from "$lib/components/Fieldset.svelte";
-  import ActiveRecord from "$lib/models/ActiveRecord";
+  import { page } from "$app/stores";
+
   let user = {
     email: "",
     password: "",
   };
-  let errors;
-  const submitForm = async (e) => {
-    const { error, data } = await ActiveRecord.send(e.target, { user });
-    if (error) return (errors = data.error);
-  };
+  $: error = $page.url.searchParams.get("error");
 </script>
 
 <div class="center">
   <div class="panel grid">
     <h1>Iniciar Sesión</h1>
-    <form action="/login" method="post" on:submit|preventDefault={submitForm}>
+    <form action="/login.json" method="post">
       <Fieldset
         title="Correo electrónico"
         bind:input={user.email}
@@ -40,8 +37,8 @@
         minlength="6"
         info="La contraseña debe de tener al menos 6 letras."
       />
-      {#if errors}
-        <p class="error">{errors}</p>
+      {#if error}
+        <p class="error">{error}</p>
       {/if}
       <button type="submit" class="inverted" style="--color: var(--purple)">
         Log in
