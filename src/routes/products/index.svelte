@@ -22,6 +22,9 @@
   let paginate = [];
 </script>
 
+<svelte:head>
+  <title>Productos</title>
+</svelte:head>
 <Filter
   items={products}
   bind:filtered
@@ -32,6 +35,7 @@
   ]}
 >
   <Search items={filtered} bind:searched />
+  <button on:click={(e) => Product.export(searched)}>Exportar</button>
 </Filter>
 <table>
   <thead>

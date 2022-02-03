@@ -14,4 +14,7 @@
   export let products = [];
 </script>
 
+<svelte:head>
+  <title>Crear nuevo grupo</title>
+</svelte:head>
 <HandleGroup {products} />

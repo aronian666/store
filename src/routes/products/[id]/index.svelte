@@ -49,6 +49,9 @@
   };
 </script>
 
+<svelte:head>
+  <title>{product.name}</title>
+</svelte:head>
 <div class="grid" style="gap:1rem" in:fade>
   <section class="panel grid">
     <div class="flex space-between">

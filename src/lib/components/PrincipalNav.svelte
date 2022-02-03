@@ -30,7 +30,6 @@
       icon: "shopping_cart",
       text: "Carrito de venta",
     },
-    { href: "/cuts", icon: "content_cut", text: "Cortar" },
     { href: "/users", icon: "person", text: "Usuarios" },
   ].filter((item) =>
     current_user.can(item.href.substring(1, item.href.length))
@@ -57,7 +56,7 @@
         {/each}
       </div>
     </div>
-    <a href="/" on:click={(e) => ActiveRecord.get("/log_out")}>
+    <a href="/log_out.json" rel="external">
       <Icon icon="logout" /><span>Salir</span>
     </a>
   </nav>
