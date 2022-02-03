@@ -19,6 +19,9 @@
   };
 </script>
 
+<svelte:head>
+  <title>Carrito de venta</title>
+</svelte:head>
 <div class="grid gap">
   <h1>{$order.cartProducts.length} productos en el carrito</h1>
   <div class="flex wrap" style="gap: 1rem">

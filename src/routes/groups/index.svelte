@@ -12,6 +12,9 @@
   groups = groups.map((group) => new Group(group));
 </script>
 
+<svelte:head>
+  <title>Grupos</title>
+</svelte:head>
 <div class="flex gap wrap">
   {#each groups as group (group._id)}
     <div class="grid panel">

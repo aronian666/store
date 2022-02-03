@@ -48,6 +48,9 @@
   });
 </script>
 
+<svelte:head>
+  <title>Vender</title>
+</svelte:head>
 <div class="grid" style="gap: 1rem">
   <section class="panel grid">
     <h3>Grupos</h3>

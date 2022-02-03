@@ -25,7 +25,6 @@
   };
 </script>
 
-<svelte:head><title>Crear nuevo producto</title></svelte:head>
 <h1>Crear Producto</h1>
 <form
   action="/products.json"
@@ -113,7 +112,7 @@
                 "¿Estas seguro que deseas eliminar esta unidad?"
               );
               if (!allow) return;
-              product.units.splice(i, 1);
+              product.unitProducts.splice(i, 1);
               product = product;
             }}>Eliminar</button
           >

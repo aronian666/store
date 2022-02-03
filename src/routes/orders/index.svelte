@@ -17,6 +17,9 @@
   let searched = [];
 </script>
 
+<svelte:head>
+  <title>Ventas</title>
+</svelte:head>
 <section class="panel">
   <h3>Filtros</h3>
   <Filter

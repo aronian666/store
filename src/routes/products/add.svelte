@@ -18,6 +18,10 @@
   let loading = false;
 </script>
 
+<svelte:head>
+  <title>Agregar productos mendiante excel</title>
+</svelte:head>
+
 <div class="flex wrap gap">
   <section class="panel grid">
     <h2>Agregar productos</h2>

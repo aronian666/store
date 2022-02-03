@@ -22,6 +22,9 @@
   let paginate = [];
 </script>
 
+<svelte:head>
+  <title>Productos</title>
+</svelte:head>
 <Filter
   items={products}
   bind:filtered

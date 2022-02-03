@@ -30,7 +30,6 @@
       icon: "shopping_cart",
       text: "Carrito de venta",
     },
-    { href: "/cuts", icon: "content_cut", text: "Cortar" },
     { href: "/users", icon: "person", text: "Usuarios" },
   ].filter((item) =>
     current_user.can(item.href.substring(1, item.href.length))

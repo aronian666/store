@@ -19,4 +19,7 @@
   product.category = product.category._id;
 </script>
 
+<svelte:head>
+  <title>Editar {product.name}</title>
+</svelte:head>
 <HandleProduct {product} {categories} {units} />

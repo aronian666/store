@@ -18,4 +18,7 @@
   group = new Group(group);
 </script>
 
+<svelte:head>
+  <title>Grupo {group.name}</title>
+</svelte:head>
 <HandleGroup {products} {group} />

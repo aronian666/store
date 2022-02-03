@@ -26,6 +26,10 @@
   let u;
 </script>
 
+<svelte:head>
+  <title>Usuarios</title>
+</svelte:head>
+
 <h2>Hola {current_user.name}</h2>
 <div class="flex gap">
   <div class="panel">

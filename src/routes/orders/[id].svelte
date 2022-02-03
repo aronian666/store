@@ -12,6 +12,9 @@
   order = new Order(order);
 </script>
 
+<svelte:head>
+  <title>Venta {order._id}</title>
+</svelte:head>
 <div id="print" class="grid" style="gap: 1rem">
   <section class="panel grid">
     <h4>Datos del cliente</h4>

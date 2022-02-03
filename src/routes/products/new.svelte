@@ -14,4 +14,7 @@
   export let product = new Product({});
 </script>
 
+<svelte:head>
+  <title>Crear nuevo producto</title>
+</svelte:head>
 <HandleProduct {product} {categories} {units} />
