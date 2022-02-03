@@ -21,7 +21,7 @@ const productSchema = mongoose.Schema({
   code: String,
 })
 const Product = mongoose.model("Product", productSchema)
-// update and create
+// update, create and delete
 Product.createAll = async function (productObject) {
   productObject.unitProducts = await UnitProduct.insertMany(productObject.unitProducts)
   const product = await Product.create(productObject)
@@ -38,6 +38,11 @@ Product.updateOneAll = async function (productObject) {
 Product.insertManyAll = async function (productsObject) {
   const products = await Promise.all(productsObject.map(product => Product.createAll(product)))
   return products
+}
+Product.deleteOneAll = async function (id) {
+  const product = await Product.findByIdAndDelete(id)
+  await Product.deleteMany({ _id: { $in: product.unitProducts } })
+  return product
 }
 
 // get products

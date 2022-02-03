@@ -1,8 +1,9 @@
 <script>
   import { page } from "$app/stores";
   import ActiveRecord from "$lib/models/ActiveRecord";
+  import { getContext } from "svelte";
   import Icon from "./Icon.svelte";
-
+  const current_user = getContext("current_user");
   const menu = [
     { href: "/", text: "Inicio", icon: "home" },
     {
@@ -30,8 +31,10 @@
       text: "Carrito de venta",
     },
     { href: "/cuts", icon: "content_cut", text: "Cortar" },
-    { href: "/profile", icon: "person", text: "Usuarios" },
-  ];
+    { href: "/users", icon: "person", text: "Usuarios" },
+  ].filter((item) =>
+    current_user.can(item.href.substring(1, item.href.length))
+  );
   let show = false;
 </script>
 

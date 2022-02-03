@@ -21,10 +21,13 @@
   import Search from "$lib/components/Search.svelte";
   import Group from "$lib/models/Group";
   import Product from "$lib/models/Product";
-
+  import { onMount, setContext } from "svelte";
+  import { writable } from "svelte/store";
   export let products = [];
   products = products.map((product) => new Product(product));
   export let groups = [];
+  let codes = writable([]);
+  setContext("codes", codes);
   groups = groups.map((group) => {
     const product_ids = group.combinations.map(
       (combination) => combination.product
@@ -39,6 +42,10 @@
   let paginate = [];
   let product;
   let group;
+  onMount(async () => {
+    const { data } = await Group.get("/users.json");
+    codes.set(data.users.map((user) => user.code).filter((code) => code));
+  });
 </script>
 
 <div class="grid" style="gap: 1rem">

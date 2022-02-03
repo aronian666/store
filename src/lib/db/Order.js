@@ -24,8 +24,14 @@ Order.createAll = async function (orderObject) {
   const client = await Client.findOne({ name: orderObject.client.name })
   if (client) orderObject.client = client
   else orderObject.client = await Client.create(orderObject.client)
+  const order_id = mongoose.Types.ObjectId();
+  orderObject.cartProducts = orderObject.cartProducts.map(cartProduct => {
+    cartProduct.order = order_id
+    return cartProduct
+  })
   const cartProducts = await CartProduct.insertMany(orderObject.cartProducts)
   orderObject.cartProducts = cartProducts
+  orderObject._id = order_id
   const order = await Order.create(orderObject)
   return order
 }

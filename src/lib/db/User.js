@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
   role: {
     type: Number,
     default: 1
-  }
+  },
+  code: String
 })
 userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10)

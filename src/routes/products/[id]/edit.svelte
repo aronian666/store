@@ -1,8 +1,11 @@
 <script context="module">
-  export async function load({ fetch }) {
+  export async function load({ fetch, params }) {
     const response = await fetch("/products/new.json");
+    const response2 = await fetch(`/products/${params.id}.json`);
     const data = await response.json();
-    return { props: data };
+    const product = await response2.json();
+    //product.category = product.category._id;
+    return { props: { ...data, product } };
   }
 </script>
 
@@ -11,7 +14,9 @@
   import Product from "$lib/models/Product";
   export let categories = [];
   export let units = [];
-  export let product = new Product({});
+  export let product;
+  product = new Product(product);
+  product.category = product.category._id;
 </script>
 
 <HandleProduct {product} {categories} {units} />

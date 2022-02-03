@@ -1,3 +1,14 @@
+<script context="module">
+  import User from "$lib/models/User";
+  export async function load({ session, url }) {
+    if (!session.current_user) return { props: null };
+    const current_user = new User(session.current_user);
+    const path = url.pathname.split("/")[1];
+    if (current_user.can(path)) return { props: null };
+    return { status: 303, redirect: "/" };
+  }
+</script>
+
 <script>
   import PrincipalNav from "$lib/components/PrincipalNav.svelte";
   import Order from "$lib/models/Order";
@@ -5,6 +16,11 @@
   import { writable } from "svelte/store";
   import { session, navigating } from "$app/stores";
   import Loading from "$lib/components/Loading.svelte";
+
+  let current_user = $session.current_user
+    ? new User($session.current_user)
+    : null;
+  setContext("current_user", current_user);
   let order = writable(new Order({ employee: $session.current_user }));
   onMount(() => {
     const local = localStorage.getItem("cartProducts");

@@ -15,6 +15,7 @@
     group,
   });
   let order = getContext("order");
+  const codes = getContext("codes");
   let previus_id = product._id;
   const nameChange = (id) => {
     if (previus_id !== id) {
@@ -38,6 +39,8 @@
   $: {
     nameChange(product._id);
   }
+  const current_user = getContext("current_user");
+  let permit = current_user.role != 2;
   const addProduct = (e) => {
     if (index !== undefined) {
       if (confirm("¿Estas seguro de querer guardar los cambios?") === false)
@@ -50,6 +53,13 @@
     }
     cartProduct = new CartProduct(cartProduct.toObject());
   };
+  const edit = () => {
+    if (permit) return null;
+    return (e) => {
+      const code = prompt("Ingresa un codigo para editar:", "");
+      if ($codes.includes(code)) permit = true;
+    };
+  };
 </script>
 
 <form on:submit|preventDefault={addProduct}>
@@ -57,7 +67,11 @@
   <section class="flex wrap space-between" style="gap: 1rem">
     <fieldset>
       <h5>Disponible</h5>
-      <p>
+      <p
+        style={`color: ${
+          cartProduct.unitProduct.quantity > 0 ? "green" : "red"
+        }`}
+      >
         {cartProduct.unitProduct.quantity}
       </p>
     </fieldset>
@@ -105,6 +119,8 @@
         title="Precio"
         bind:input={cartProduct.options.price}
         min="0"
+        readonly={!permit}
+        onClick={edit()}
       />
       <Fieldset
         icon="format_align_justify"
@@ -112,7 +128,9 @@
         name="options[quantity]"
         title="Cantidad"
         bind:input={cartProduct.options.quantity}
+        max={cartProduct.unitProduct.quantity}
         min="0"
+        info="Puedes poner como maximo la cantidad disponible"
       />
     </div>
     {#if cartProduct.unitProduct.unit.measures}
@@ -154,7 +172,7 @@
       <p style="color: red; font-weight: 500">S/. {cartProduct.total}</p>
     </fieldset>
   </section>
-  <button type="submit">
+  <button disabled={cartProduct.unitProduct.quantity <= 0} type="submit">
     {index !== undefined ? "Modificar" : "Agregar al carrito"}</button
   >
 </form>

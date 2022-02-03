@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
 
   import ActiveRecord from "$lib/models/ActiveRecord";
+  import Client from "$lib/models/Client";
 
   import { getContext, onMount } from "svelte";
   import Fieldset from "./Fieldset.svelte";
@@ -16,6 +17,7 @@
     });
     if (error) return handler();
     $order.cartProducts = [];
+    $order.client = new Client({});
     order.set($order);
     goto(`/orders/${data._id}`);
   };

@@ -30,7 +30,7 @@
   }
   span {
     aspect-ratio: 1/1;
-    width: 1.125rem;
+    width: 1rem;
     display: grid;
     place-content: center;
     border-radius: 50%;

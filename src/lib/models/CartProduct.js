@@ -3,11 +3,12 @@ import Option from "./Option"
 import UnitProduct from "./UnitProduct"
 
 export default class CartProduct {
-  constructor({ product, unitProduct, group, options }) {
+  constructor({ product, unitProduct, group, options, order }) {
     this.product = product
     this.unitProduct = unitProduct instanceof UnitProduct ? unitProduct : new UnitProduct(unitProduct)
     if (group) this.group = group instanceof Group ? group : new Group(group)
     this.options = options instanceof Option ? options : new Option(options)
+    this.order = order
   }
   toObject() {
     return JSON.parse(JSON.stringify(this))

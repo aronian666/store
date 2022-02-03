@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { unitProductSchema } from './UnitProduct'
+import UnitProduct, { unitProductSchema } from './UnitProduct'
 
 const cartProductSchema = mongoose.Schema({
   options: {
@@ -15,6 +15,16 @@ const cartProductSchema = mongoose.Schema({
     ref: "Product"
   },
   unitProduct: unitProductSchema,
+  order: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Order"
+  },
 })
+
+cartProductSchema.pre("validate", async function (next) {
+  const unitProduct = await UnitProduct.findByIdAndUpdate(this.unitProduct._id, { $inc: { quantity: -this.options.quantity } })
+  next()
+})
+
 
 export default mongoose.model("CartProduct", cartProductSchema)

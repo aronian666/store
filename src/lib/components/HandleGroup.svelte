@@ -40,6 +40,7 @@
     if (!data.error) goto(`/groups`);
   };
   const deleteGroup = async (e) => {
+    if (!confirm("Esta seguro de eliminar este producto?")) return;
     const { error } = await ActiveRecord.send(
       { action: "/groups.json?_method=DELETE", method: "post" },
       { group: { _id: group._id } }

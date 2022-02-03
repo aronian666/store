@@ -1,14 +1,16 @@
 import ActiveRecord from "./ActiveRecord"
 
 export default class User extends ActiveRecord {
-  constructor({ role, email, _id, name }) {
+  constructor({ role, email, _id, name, code }) {
     super(_id)
     this.name = name
     this.role = role
     this.email = email
+    this.code = code
   }
   get cannot() {
-    if (role === 2) return ["/products", "/groups"]
+    if (this.role === 2) return ["products", "groups", "users"]
+    if (this.role === 1) return []
     return []
   }
   get roleString() {
@@ -19,6 +21,7 @@ export default class User extends ActiveRecord {
   }
   static getRoles() {
     return [
+      { name: "Super Administrador", role: 0 },
       { name: "Administrador", role: 1 },
       { name: "Empleado", role: 2 }
     ]

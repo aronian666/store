@@ -8,7 +8,15 @@ export async function get() {
 
 export async function post({ request }) {
   const data = await request.json()
-  const product = await Product.createAll(data.product)
+  let product
+  if (data.product._id) product = await Product.updateOneAll(data.product)
+  else product = await Product.createAll(data.product)
   return { body: product }
 }
 
+
+export async function del({ request }) {
+  const data = await request.json()
+  await Product.deleteOneAll(data.product._id)
+  return { body: null }
+}

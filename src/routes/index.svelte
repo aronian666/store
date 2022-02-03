@@ -11,3 +11,5 @@
 </script>
 
 <h1>Bienvenido {current_user.name}</h1>
+<p>Tenias que darme la plantilla de los reportes prro!</p>
+<p>Aqui ira, creo que solo esto falta</p>

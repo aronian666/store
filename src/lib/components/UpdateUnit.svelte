@@ -1,11 +1,14 @@
 <script>
   import ActiveRecord from "$lib/models/ActiveRecord";
+  import { getContext } from "svelte";
 
   import Fieldset from "./Fieldset.svelte";
   export let index;
   export let product;
   export let handler;
+  let loading = getContext("loading");
   const updateProduct = async (e) => {
+    $loading = true;
     const response = await ActiveRecord.send(e.target, { product });
     if (!response.error) handler(response.data);
   };
@@ -17,14 +20,6 @@
   on:submit|preventDefault={updateProduct}
 >
   <h2>{product.unitProducts[index].unit.name}</h2>
-  <Fieldset
-    title="Cantidad"
-    bind:input={product.unitProducts[index].quantity}
-    name={`product[unit][${index}][quantity]`}
-    type="number"
-    required
-    min="0"
-  />
   <Fieldset
     title="Precio de compra"
     bind:input={product.unitProducts[index].buyPrice}
