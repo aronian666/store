@@ -18,7 +18,7 @@ input, select {
   border: unset;
   border-radius: .25rem;
   outline-color: rgb(84 105 212 / 0.5);
-  padding: .5rem 1rem;
+  padding: 0.75rem 1rem;
   box-shadow: rgba(60, 66, 87, 0.16) 0px 0px 0px 1px
 }
 

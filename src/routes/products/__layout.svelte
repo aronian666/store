@@ -19,11 +19,11 @@
       name: "Crear producto",
       icon: "fas fa-file",
     },
-    { href: "/products/add", name: "Actualizar mediante excel" },
+    { href: "/products/add", name: "Agregar excel" },
   ];
 </script>
 
-<div class="grid" style="gap: 1rem">
+<div class="grid" style="gap: 2rem">
   <Nav items={pages} />
   <slot />
 </div>

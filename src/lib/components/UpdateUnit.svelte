@@ -47,5 +47,5 @@
     step="0.01"
     min="0"
   />
-  <button class="inverted" style="--color: green">Guardar</button>
+  <button class="inverted" style="--color: limegreen">Guardar</button>
 </form>

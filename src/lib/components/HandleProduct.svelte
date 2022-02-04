@@ -3,6 +3,7 @@
   import Fieldset from "./Fieldset.svelte";
   import FieldsetSelect from "./FieldsetSelect.svelte";
   import Product from "$lib/models/Product";
+  import Icon from "./Icon.svelte";
   export let categories = [];
   export let units = [];
   export let product;
@@ -120,9 +121,10 @@
       {/each}
     </div>
   </section>
-  <button type="submit" class="inverted" style="--color: var(--purple)"
-    >Guardar</button
-  >
+  <button type="submit">
+    <Icon icon="save" size={16} />
+    Guardar
+  </button>
 </form>
 
 <style>

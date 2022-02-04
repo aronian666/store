@@ -66,9 +66,7 @@
   </section>
 </div>
 <section>
-  <button
-    class="inverted"
-    style="--color: lime"
-    on:click={(e) => window.print()}>Imprimir</button
+  <button class="inverted" style="--color: red" on:click={(e) => window.print()}
+    >Imprimir</button
   >
 </section>

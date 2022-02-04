@@ -14,6 +14,7 @@
   import Search from "$lib/components/Search.svelte";
   import Product from "$lib/models/Product";
   import Pagination from "$lib/components/Pagination.svelte";
+  import Icon from "$lib/components/Icon.svelte";
 
   export let products = [];
   products = products.map((product) => new Product(product));
@@ -25,18 +26,27 @@
 <svelte:head>
   <title>Productos</title>
 </svelte:head>
-<Filter
-  items={products}
-  bind:filtered
-  filter={[
-    { name: "Categoria", property: "categoryName" },
-    { name: "Precio", property: "sellPrice", range: true },
-    { name: "Cantidad", property: "quantity", range: true },
-  ]}
->
-  <Search items={filtered} bind:searched />
-  <button on:click={(e) => Product.export(searched)}>Exportar</button>
-</Filter>
+<div class="flex space-between">
+  <Filter
+    items={products}
+    bind:filtered
+    filter={[
+      { name: "Categoria", property: "categoryName" },
+      { name: "Precio", property: "sellPrice", range: true },
+      { name: "Cantidad", property: "quantity", range: true },
+    ]}
+  >
+    <Search items={filtered} bind:searched />
+  </Filter>
+  <button
+    on:click={(e) => Product.export(searched)}
+    class="inverted"
+    style="--color: blueviolet"
+  >
+    <Icon icon="download" />
+    Descargar
+  </button>
+</div>
 <table>
   <thead>
     <tr>

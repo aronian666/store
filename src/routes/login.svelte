@@ -17,7 +17,7 @@
 </script>
 
 <div class="center">
-  <div class="panel grid">
+  <div class="panel grid" style="padding: 2rem;">
     <h1>Iniciar Sesión</h1>
     <form action="/login.json" method="post">
       <Fieldset
@@ -40,8 +40,8 @@
       {#if error}
         <p class="error">{error}</p>
       {/if}
-      <button type="submit" class="inverted" style="--color: var(--purple)">
-        Log in
+      <button type="submit" class="inverted" style="--color: black">
+        Iniciar sesión
       </button>
     </form>
     <p>¿Aún no tienes una cuenta? <a href="/sign_up">Registrate</a></p>
@@ -53,5 +53,12 @@
     display: grid;
     place-content: center;
     height: 100vh;
+    background-image: url("/logo.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  h1 {
+    text-align: center;
   }
 </style>

@@ -31,7 +31,7 @@
 
 <svelte:head><title>Registrate</title></svelte:head>
 <div class="center">
-  <div class="panel">
+  <div class="panel grid" style="padding: 2rem;">
     <h1>Registrate</h1>
     <form action="/sign_up.json" method="post">
       <Fieldset
@@ -72,7 +72,7 @@
       {#if error}
         <p class="error">{error}</p>
       {/if}
-      <button class="inverted" style="--color: var(--purple)" type="submit"
+      <button class="inverted" style="--color: black" type="submit"
         >Registrarse</button
       >
     </form>
@@ -85,10 +85,10 @@
     display: grid;
     place-content: center;
     height: 100vh;
-  }
-  .panel {
-    display: grid;
-    gap: 1rem;
+    background-image: url("/logo.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
   h1 {
     text-align: center;

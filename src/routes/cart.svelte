@@ -108,7 +108,7 @@
         </div>
         <button
           class="holed"
-          style="--color: green"
+          style="--color: red"
           on:click={(e) => (checkout = true)}>Pagar</button
         >
       </div>

@@ -41,7 +41,7 @@
   <nav class="flex column gap">
     <div class="flex column gap">
       <picture>
-        <img src="/logo.png" alt="logo" />
+        <img src="/logo.svg" alt="logo" />
       </picture>
       <div>
         {#each menu as item, i}
@@ -70,14 +70,14 @@
     position: relative;
   }
   a.active {
-    border-right: 5px solid var(--blue, blue);
-    color: var(--blue, blue);
+    border-right: 5px solid red;
+    color: red;
     font-weight: 700;
   }
   nav {
     min-height: 100vh;
     box-shadow: 0 0 1rem gray;
-    width: 5.5rem;
+    width: 4rem;
     transition: 0.3s;
     justify-content: space-between;
     position: sticky;
@@ -98,7 +98,7 @@
     color: black;
   }
   a:hover {
-    color: var(--blue);
+    color: red;
     background-color: #fafafa;
   }
   a span {
@@ -110,10 +110,11 @@
   }
   img {
     width: 100%;
-    max-width: 150px;
+    max-width: 100px;
   }
   picture {
     display: grid;
     place-content: center;
+    padding: 0.25rem;
   }
 </style>

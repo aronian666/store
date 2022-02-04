@@ -28,10 +28,11 @@
     padding: 1rem;
     transition: 0.3s;
     box-shadow: 1px 0 0 0 rgba(128, 128, 128, 0.432);
+    color: black;
   }
   a.active {
-    background-color: deepskyblue;
-    box-shadow: 0 0 0 1px deepskyblue;
+    background-color: black;
+    box-shadow: 0 0 0 1px black;
     color: white;
     position: relative;
   }
@@ -43,6 +44,6 @@
     transform: translateX(-50%) translateY(-50%) rotate(45deg);
     width: 1rem;
     aspect-ratio: 1/1;
-    background-color: deepskyblue;
+    background-color: black;
   }
 </style>

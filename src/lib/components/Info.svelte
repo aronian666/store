@@ -34,7 +34,7 @@
     display: grid;
     place-content: center;
     border-radius: 50%;
-    background-color: rgb(84, 105, 212);
+    background-color: black;
     color: white;
     cursor: pointer;
   }
