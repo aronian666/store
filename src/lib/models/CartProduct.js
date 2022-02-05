@@ -44,10 +44,10 @@ export default class CartProduct {
     return this.product.name
   }
   static totalSell(cartProducts) {
-    return cartProducts.reduce((a, b) => a + b.total, 0)
+    return parseFloat(cartProducts.reduce((a, b) => a + b.total, 0).toFixed(2))
   }
   static totalGain(cartProducts) {
-    return cartProducts.reduce((a, b) => a + b.gain, 0)
+    return parseFloat(cartProducts.reduce((a, b) => a + b.gain, 0).toFixed(2))
   }
   static totalQuantity(cartProducts) {
     return cartProducts.reduce((a, b) => a + b.equivalentQuantity, 0)

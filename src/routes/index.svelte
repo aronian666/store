@@ -8,6 +8,7 @@
 <script>
   import { session } from "$app/stores";
   import Fieldset from "$lib/components/Fieldset.svelte";
+  import Loading from "$lib/components/Loading.svelte";
   import Table from "$lib/components/Table.svelte";
   import ActiveRecord from "$lib/models/ActiveRecord";
 
@@ -18,7 +19,7 @@
   const day = 1000 * 60 * 60 * 24;
   let startDate = new Date();
   startDate.setHours(0, 0, 0, 0);
-  let endDate = new Date(startDate.getTime() + 1000 * 60 * 60 * 24);
+  let endDate = new Date(startDate.getTime() + day);
   startDate = getInputDate(startDate);
   endDate = getInputDate(endDate);
   const changeDate = async (start, end) => {
@@ -31,16 +32,20 @@
     return data;
   };
   $: {
+    loading = true;
     changeDate(startDate, endDate)
       .then((data) => {
         orders = data.map((order) => new Order(order));
+        loading = false;
       })
       .catch((error) => {
         orders = [];
+        loading = false;
       });
   }
   $: employees = Order.groupEmployess(orders);
   $: products = Order.groupProducts(orders);
+  let loading = false;
 </script>
 
 <div class="grid" style="gap: 1rem" id="print">
@@ -51,50 +56,56 @@
       <Fieldset title="Final" type="date" bind:input={endDate} />
     </div>
   </div>
-  <div class="panel grid">
-    <h3>Resumen de ventas</h3>
-    <div class="flex wrap gap" style="--color: tomato">
-      <section class="panel grid gap">
-        <h4>Ventas</h4>
-        <p>{orders.length}</p>
-      </section>
-      <section class="panel grid gap">
-        <h4>Productos vendidos</h4>
-        <p>{Order.totalQuantity(orders)}</p>
-      </section>
-
-      <section class="panel grid gap">
-        <h4>Total vendido</h4>
-        <p>S./ {Order.totalSell(orders)}</p>
-      </section>
-      <section class="panel grid gap">
-        <h4>Ganancia total</h4>
-        <p>S./ {Order.totalGain(orders)}</p>
-      </section>
+  {#if loading}
+    <div class="grid place-content">
+      <Loading />
     </div>
-  </div>
-  <section class="panel grid">
-    <h3>Resumen de vendedores</h3>
-    <Table
-      items={employees}
-      properties={[
-        { name: "Venderor", property: "name" },
-        { name: "Numero de ventas", property: "ordersCount" },
-        { name: "Total vendido", property: "sellQuantity" },
-        { name: "Productos vendidos", property: "productQuantity" },
-      ]}
-    />
-  </section>
-  <section class="panel grid">
-    <h3>Resumen de productos</h3>
-    <Table
-      items={products}
-      properties={[
-        { name: "Producto", property: "name" },
-        { name: "Vendidos", property: "quantity" },
-        { name: "Recaudado", property: "totalSell" },
-        { name: "Ganancia", property: "gain" },
-      ]}
-    />
-  </section>
+  {:else}
+    <div class="panel grid">
+      <h3>Resumen de ventas</h3>
+      <div class="flex wrap gap" style="--color: tomato">
+        <section class="panel grid gap">
+          <h4>Ventas</h4>
+          <p>{orders.length}</p>
+        </section>
+        <section class="panel grid gap">
+          <h4>Productos vendidos</h4>
+          <p>{Order.totalQuantity(orders)}</p>
+        </section>
+
+        <section class="panel grid gap">
+          <h4>Total vendido</h4>
+          <p>S./ {Order.totalSell(orders)}</p>
+        </section>
+        <section class="panel grid gap">
+          <h4>Ganancia total</h4>
+          <p>S./ {Order.totalGain(orders)}</p>
+        </section>
+      </div>
+    </div>
+    <section class="panel grid">
+      <h3>Resumen de vendedores</h3>
+      <Table
+        items={employees}
+        properties={[
+          { name: "Venderor", property: "name" },
+          { name: "Numero de ventas", property: "ordersCount" },
+          { name: "Total vendido", property: "sellQuantity" },
+          { name: "Productos vendidos", property: "productQuantity" },
+        ]}
+      />
+    </section>
+    <section class="panel grid">
+      <h3>Resumen de productos</h3>
+      <Table
+        items={products}
+        properties={[
+          { name: "Producto", property: "name" },
+          { name: "Vendidos", property: "quantity" },
+          { name: "Recaudado", property: "totalSell" },
+          { name: "Ganancia", property: "gain" },
+        ]}
+      />
+    </section>
+  {/if}
 </div>
