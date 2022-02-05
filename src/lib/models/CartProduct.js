@@ -1,3 +1,4 @@
+import { groupBy } from "$lib/scripts/groupBy"
 import Group from "./Group"
 import Option from "./Option"
 import UnitProduct from "./UnitProduct"
@@ -38,5 +39,29 @@ export default class CartProduct {
   get showName() {
     const measures = this.unitProduct.unit.measures ? "(" + Object.values(this.options.measures).join(" X ") + ")" : ""
     return `${this.product.name} ${measures}`
+  }
+  get name() {
+    return this.product.name
+  }
+  static totalSell(cartProducts) {
+    return cartProducts.reduce((a, b) => a + b.total, 0)
+  }
+  static totalGain(cartProducts) {
+    return cartProducts.reduce((a, b) => a + b.gain, 0)
+  }
+  static totalQuantity(cartProducts) {
+    return cartProducts.reduce((a, b) => a + b.equivalentQuantity, 0)
+  }
+  static groupProducts(cartProducts) {
+    const groupProducts = groupBy(cartProducts, "name")
+    const products = []
+    for (let productName in groupProducts) {
+      const product = { name: productName, cartProducts: groupProducts[productName] }
+      product.quantity = CartProduct.totalQuantity(groupProducts[productName])
+      product.totalSell = CartProduct.totalSell(groupProducts[productName])
+      product.gain = CartProduct.totalGain(groupProducts[productName])
+      products.push(product)
+    }
+    return products
   }
 }

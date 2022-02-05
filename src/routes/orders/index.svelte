@@ -1,6 +1,13 @@
 <script context="module">
-  export async function load({ fetch }) {
-    const response = await fetch("/orders.json");
+  export async function load({ fetch, url }) {
+    if (url.search === "") {
+      const startDate = new Date();
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(startDate.getTime() + 1000 * 60 * 60 * 24);
+      url.search = `?start=${startDate.getTime()}&end=${endDate.getTime()}`;
+      return { status: 303, redirect: `/orders${url.search}` };
+    }
+    const response = await fetch("/orders.json" + url.search);
     const orders = await response.json();
     return { props: { orders } };
   }
@@ -11,12 +18,22 @@
   import Pagination from "$lib/components/Pagination.svelte";
   import Search from "$lib/components/Search.svelte";
   import Order from "$lib/models/Order";
-
+  import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
+  import Fieldset from "$lib/components/Fieldset.svelte";
+  import { getInputDate } from "$lib/scripts/date";
   export let orders;
   orders = orders.map((order) => new Order(order));
   let filtered = [];
   let searched = [];
   let paginate = [];
+  let start = getInputDate($page.url.searchParams.get("start"));
+  let end = getInputDate($page.url.searchParams.get("end"));
+  const changeDate = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    goto(`/orders?start=${startDate.getTime()}&end=${endDate.getTime()}`);
+  };
 </script>
 
 <svelte:head>
@@ -34,6 +51,18 @@
       ]}
     >
       <Search items={filtered} bind:searched />
+      <Fieldset
+        title="Inicio"
+        type="date"
+        bind:input={start}
+        onChange={(e) => changeDate(start, end)}
+      />
+      <Fieldset
+        title="Fin"
+        type="date"
+        bind:input={end}
+        onChange={(e) => changeDate(start, end)}
+      />
     </Filter>
   </section>
   <section class="panel grid">

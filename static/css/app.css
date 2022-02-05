@@ -57,7 +57,7 @@ p {
   font-size: .8rem;
 }
 .gap {
-  gap: .5rem;
+  gap: .5rem !important;
 }
 .panel {
   padding: var(--size, 1rem);

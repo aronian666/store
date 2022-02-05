@@ -4,3 +4,13 @@ table * {
 th, td {
   padding: var(--size, 0.5rem) var(--size,1rem);
 }
+th.asc::after {
+  content: "\25b4";
+}
+th.desc::after {
+  content: "\25be";
+}
+th.asc::after,
+th.desc::after {
+  margin-left: 0.5rem;
+}

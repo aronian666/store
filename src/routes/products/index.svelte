@@ -13,8 +13,8 @@
   import Filter from "$lib/components/Filter.svelte";
   import Search from "$lib/components/Search.svelte";
   import Product from "$lib/models/Product";
-  import Pagination from "$lib/components/Pagination.svelte";
   import Icon from "$lib/components/Icon.svelte";
+  import Table from "$lib/components/Table.svelte";
 
   export let products = [];
   products = products.map((product) => new Product(product));
@@ -47,30 +47,23 @@
     Descargar
   </button>
 </div>
-<table>
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Detalles</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each paginate as product (product._id)}
-      <tr>
-        <td>{product.name}</td>
-        <td>{product.quantity}</td>
-        <td>S./ {product.sellPrice}</td>
-        <td>
-          <a href={`/products/${product._id}`}>Detalles</a>
-        </td>
-      </tr>
-    {/each}
-    <tr>
-      <td />
-    </tr>
-  </tbody>
-</table>
 
-<Pagination items={searched} bind:paginate />
+<Table
+  let:item
+  items={searched}
+  properties={[
+    { name: "Producto", property: "name" },
+    { name: "Cantidad", property: "quantity" },
+    { name: "Precio de venta", property: "sellPrice" },
+    { name: "Detalles", property: "options" },
+  ]}
+>
+  <tr slot="tr">
+    <td>{item.name}</td>
+    <td>{item.quantity}</td>
+    <td>S./ {item.sellPrice}</td>
+    <td>
+      <a href={`/products/${item._id}`}>Detalles</a>
+    </td>
+  </tr>
+</Table>
