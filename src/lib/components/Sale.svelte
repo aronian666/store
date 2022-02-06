@@ -128,7 +128,6 @@
         name="options[quantity]"
         title="Cantidad"
         bind:input={cartProduct.options.quantity}
-        max={cartProduct.unitProduct.quantity}
         min="0"
         info="Puedes poner como maximo la cantidad disponible"
       />
