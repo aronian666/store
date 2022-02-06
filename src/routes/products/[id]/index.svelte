@@ -130,12 +130,23 @@
       <PaginateTable
         let:item
         items={cartProducts}
-        header={["Cantidad", "Precio de venta", "Ganancia", "Venta"]}
+        header={[
+          "Cantidad",
+          "Unidad",
+          "Precio de venta",
+          "Total",
+          "Ganancia",
+          "Venta",
+        ]}
       >
         <tr>
-          <td>{item.options.quantity}</td>
-          <td>{item.total}</td>
-          <td>{item.gain}</td>
+          <td>{item.equivalentQuantity}</td>
+          <td>
+            {item.unitProduct.unit.name}
+          </td>
+          <td>S./ {item.options.price}</td>
+          <td>S./ {item.total}</td>
+          <td>S./ {item.gain}</td>
           <td>
             <a href={`/orders/${item.order}`}>Ver detalles</a>
           </td>
@@ -163,7 +174,7 @@
       >
         <tr>
           <td>{item.quantity}</td>
-          <td>{item.buyPrice}</td>
+          <td>S./ {item.buyPrice}</td>
           <td>{item.provider.name}</td>
         </tr>
       </PaginateTable>

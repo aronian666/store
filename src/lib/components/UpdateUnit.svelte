@@ -1,5 +1,6 @@
 <script>
   import ActiveRecord from "$lib/models/ActiveRecord";
+  import { evalPrice } from "$lib/scripts/evalPrice";
   import { getContext } from "svelte";
 
   import Fieldset from "./Fieldset.svelte";
@@ -37,7 +38,20 @@
     required
     step="0.01"
     min="0"
-  />
+  >
+    <p style="color: gray">
+      Precio de venta segerido
+      <span
+        style="font-weight: 600; cursor: pointer; color: red;"
+        on:click={(e) =>
+          (product.unitProducts[index].sellPrice = evalPrice(
+            product.unitProducts[index].buyPrice
+          ))}
+      >
+        {evalPrice(product.unitProducts[index].buyPrice)}
+      </span>
+    </p>
+  </Fieldset>
   <Fieldset
     title="Precio de venta - Juliaca"
     bind:input={product.unitProducts[index].otherPrice}

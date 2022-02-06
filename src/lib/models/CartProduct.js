@@ -4,12 +4,13 @@ import Option from "./Option"
 import UnitProduct from "./UnitProduct"
 
 export default class CartProduct {
-  constructor({ product, unitProduct, group, options, order }) {
+  constructor({ product, unitProduct, group, options, order, divide }) {
     this.product = product
     this.unitProduct = unitProduct instanceof UnitProduct ? unitProduct : new UnitProduct(unitProduct)
     if (group) this.group = group instanceof Group ? group : new Group(group)
     this.options = options instanceof Option ? options : new Option(options)
     this.order = order
+    this.divide = divide || this.unitProduct.unit.divide
   }
   toObject() {
     return JSON.parse(JSON.stringify(this))
@@ -22,19 +23,19 @@ export default class CartProduct {
     return this.unitProduct.buyPrice !== this.options.price
   }
   get measuresValue() {
-    return this.unitProduct.unit.measures ? Object.values(this.options.measures).reduce((a, b) => a * b, 1) : 1
+    return Object.values(this.options.measures).reduce((a, b) => a * b, 1)
   }
   get unitPrice() {
-    return parseFloat((this.measuresValue * this.options.price / this.unitProduct.unit.divide).toFixed(2));
+    return parseFloat((this.measuresValue * this.options.price / this.divide).toFixed(2));
   }
   get total() {
     return parseFloat((this.unitPrice * this.options.quantity).toFixed(2))
   }
   get equivalentQuantity() {
-    return parseFloat((this.options.quantity * this.measuresValue).toFixed(2))
+    return parseFloat((this.options.quantity * this.measuresValue / this.divide).toFixed(2))
   }
   get gain() {
-    return this.total - this.equivalentQuantity * this.unitProduct.buyPrice
+    return parseFloat((this.total - this.equivalentQuantity * this.unitProduct.buyPrice).toFixed(2))
   }
   get showName() {
     const measures = this.unitProduct.unit.measures ? "(" + Object.values(this.options.measures).join(" X ") + ")" : ""
@@ -50,7 +51,7 @@ export default class CartProduct {
     return parseFloat(cartProducts.reduce((a, b) => a + b.gain, 0).toFixed(2))
   }
   static totalQuantity(cartProducts) {
-    return cartProducts.reduce((a, b) => a + b.equivalentQuantity, 0)
+    return cartProducts.reduce((a, b) => a + b.options.quantity, 0)
   }
   static groupProducts(cartProducts) {
     const groupProducts = groupBy(cartProducts, "name")

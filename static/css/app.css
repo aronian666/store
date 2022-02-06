@@ -8,9 +8,6 @@
   --purple: rgb(84, 105, 212);
   --gray: rgb(220, 220, 220);
 }
-html {
-  font-size: 14px;
-}
 body {
   background-color: #fbfbfb;
 }
@@ -53,9 +50,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-p {
-  font-size: .8rem;
-}
 .gap {
   gap: .5rem !important;
 }
@@ -67,8 +61,8 @@ p {
   gap: var(--gap, 1rem);
   background-color: white;
 }
-.panel p {
-  font-size: .9rem;
+p {
+  font-size: .85rem;
 }
 @media print {
   body * {
