@@ -81,9 +81,7 @@
         <Li
           slot="li"
           text={item.unit.name}
-          onClick={(e) => {
-            cartProduct.unitProduct = item;
-          }}
+          onClick={(e) => (cartProduct.unitProduct = item)}
           active={cartProduct.unitProduct.unit._id === item.unit._id}
         />
       </List>

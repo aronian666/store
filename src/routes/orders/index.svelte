@@ -22,11 +22,11 @@
   import { goto } from "$app/navigation";
   import Fieldset from "$lib/components/Fieldset.svelte";
   import { getInputDate } from "$lib/scripts/date";
+  import Table from "$lib/components/Table.svelte";
   export let orders;
   orders = orders.map((order) => new Order(order));
   let filtered = [];
   let searched = [];
-  let paginate = [];
   let start = getInputDate($page.url.searchParams.get("start"));
   let end = getInputDate($page.url.searchParams.get("end"));
   const changeDate = (start, end) => {
@@ -67,30 +67,36 @@
   </section>
   <section class="panel grid">
     <h3>Ventas</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Vendedor</th>
-          <th>Productos</th>
-          <th>Fecha</th>
-          <th>Detalles</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each paginate as order}
-          <tr>
-            <td>{order.client.name}</td>
-            <td>{order.employee.name}</td>
-            <td>{order.cartProducts.length}</td>
-            <td>{order.createdAt.toLocaleString()}</td>
-            <td>
-              <a sveltekit:prefetch href={`/orders/${order._id}`}>Detalles</a>
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-    <Pagination items={searched} bind:paginate />
+    <p>
+      Las filas de color <span style="color: red; font-weight: 600">Rojo</span> tienen
+      el precio modificado.
+    </p>
+    <Table
+      let:item
+      items={searched}
+      properties={[
+        { name: "Cliente", property: "clientName" },
+        { name: "Vendedor", property: "employeeName" },
+        { name: "Productos", property: "productCount" },
+        { name: "Fecha", property: "createdAt" },
+        { name: "Detalles" },
+      ]}
+    >
+      <tr slot="tr" class:changed={item.changed}>
+        <td>{item.client.name}</td>
+        <td>{item.employee.name}</td>
+        <td>{item.cartProducts.length}</td>
+        <td>{item.createdAt.toLocaleString()}</td>
+        <td>
+          <a sveltekit:prefetch href={`/orders/${item._id}`}>Detalles</a>
+        </td>
+      </tr>
+    </Table>
   </section>
 </div>
+
+<style>
+  .changed {
+    background-color: rgba(255, 99, 71, 0.137);
+  }
+</style>

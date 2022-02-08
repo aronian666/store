@@ -46,6 +46,9 @@
   $: employees = Order.groupEmployess(orders);
   $: products = Order.groupProducts(orders);
   let loading = false;
+  $: {
+    console.log(orders);
+  }
 </script>
 
 <div class="grid" style="gap: 1rem" id="print">

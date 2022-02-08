@@ -26,6 +26,9 @@ export default class Order extends ActiveRecord {
   get total() {
     return parseFloat((this.cartProducts.reduce((a, b) => a + b.total, 0)).toFixed(2))
   }
+  get productCount() {
+    return this.cartProducts.length
+  }
   get employeeName() {
     return this.employee.name
   }
