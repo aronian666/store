@@ -2,7 +2,7 @@ table * {
   font-size: 0.8rem;
 }
 th, td {
-  padding: var(--size, 0.5rem) var(--size,1rem);
+  padding: var(--size, 0.5rem) var(--size,0.5rem);
 }
 th.asc::after {
   content: "\25b4";

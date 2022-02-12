@@ -4,41 +4,61 @@
 
   let order = getContext("order");
   let active = true;
+  export let product;
+  export let group;
+  export let cartProduct;
+  export let index;
+  const handleEdit = (cP, i) => {
+    if (cP.group) {
+      group = cP.group;
+      product = null;
+    } else {
+      product = cP.product;
+      group = null;
+    }
+    index = i;
+    cartProduct = cP;
+  };
 </script>
 
 <aside class:active class="flex column gap">
   <button on:click={(e) => (active = !active)}
     ><Icon icon="shopping_cart" />
   </button>
-  <div class="content grid" style="gap: 1rem">
-    <h3>
-      {$order.cartProducts.length} productos
+  <div class="content grid gap">
+    <h4>
+      <div>{$order.cartProducts.length} productos</div>
       <span style="color: red">S./ {$order.total}</span>
-    </h3>
-    <div class="grid gap">
+    </h4>
+    <div class="grid" style="gap: 0.5rem">
       {#each $order.cartProducts as cartProduct, i}
-        <section class="panel grid" style="gap: .25rem; position: relative;">
-          <h5>{cartProduct.product.name}</h5>
-          <p style="color: deeppink">S./ {cartProduct.total}</p>
-
-          <div
-            class="round"
-            style="--color:red; right: 0; cursor: pointer"
-            on:click={(e) => {
-              if (!confirm("Esta seguro que desea eliminar?")) return;
-              $order.cartProducts.splice(i, 1);
-              order.set($order);
-            }}
-          >
-            X
-          </div>
-          <div class="round" style="left: 0; ">
-            {cartProduct.options.quantity}
+        <section class="grid" style="gap: .25rem; position: relative;">
+          <h5>{cartProduct.showName}</h5>
+          <div class="details">
+            <span class="b-500">Cantidad</span>
+            <p>{cartProduct.options.quantity}</p>
+            <span class="b-500">Total</span>
+            <p style="color: red" class="b-500">S./ {cartProduct.total}</p>
+            <button
+              on:click={(e) => {
+                if (!confirm("¿Esta seguro de querer eliminar este producto?"))
+                  return;
+                $order.cartProducts.splice(i, 1);
+                order.set($order);
+              }}
+              class="inverted"
+              style="--color: red">Eliminar</button
+            >
+            <button
+              class="inverted"
+              on:click={(e) => handleEdit(cartProduct, i)}
+              style="--color: orange">Editar</button
+            >
           </div>
         </section>
       {/each}
     </div>
-    <a href="/cart" class="button inverted" style="--color: red">Pagar</a>
+    <a href="/cart" class="button inverted" style="--color: black">Pagar</a>
   </div>
 </aside>
 
@@ -68,17 +88,21 @@
     font-size: 2rem;
     color: red;
   }
-  .round {
-    position: absolute;
-    background-color: var(--color, orange);
-    color: white;
-    width: 1.5rem;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
+  section {
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+  }
+  .details {
     display: grid;
-    place-content: center;
-
-    top: -0.8rem;
-    font-size: 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0.25rem;
+  }
+  .details > * {
+    font-size: 0.7rem;
+  }
+  h4 {
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
   }
 </style>

@@ -15,7 +15,6 @@
 
 <script>
   import Filter from "$lib/components/Filter.svelte";
-  import Pagination from "$lib/components/Pagination.svelte";
   import Search from "$lib/components/Search.svelte";
   import Order from "$lib/models/Order";
   import { page } from "$app/stores";
@@ -83,7 +82,7 @@
       ]}
     >
       <tr slot="tr" class:changed={item.changed}>
-        <td>{item.client.name}</td>
+        <td>{item.clientName}</td>
         <td>{item.employee.name}</td>
         <td>{item.cartProducts.length}</td>
         <td>{item.createdAt.toLocaleString()}</td>

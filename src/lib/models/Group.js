@@ -2,15 +2,17 @@
 import { isEqualObject } from "$lib/scripts/equal";
 import ActiveRecord from "./ActiveRecord";
 import Combination from "./Combination";
+import Product from "./Product";
 
 export default class Group extends ActiveRecord {
-  constructor({ _id, name = "", photo = {}, variants = [], combinations = [] }) {
+  constructor({ _id, name = "", photo = {}, variants = [], combinations = [], products = [], combination }) {
     super(_id)
     this.name = name
     this.photo = photo
     this.combinations = combinations.map(combination => new Combination(combination))
-    this.combination = this.combinations[0]
-    this.products = []
+    if (combination) this.combination = new Combination(combination)
+    else this.combination = this.combinations[0]
+    this.products = products.map(product => new Product(product))
     this.variants = variants.map(variant => {
       variant.value = this.combination.variant[variant.name]
       return variant
@@ -19,7 +21,6 @@ export default class Group extends ActiveRecord {
   setCombination(product) {
     if (!product) return
     this.combination = this.combinations.find(combination => combination.product._id === product._id)
-    return this
   }
   getVariant() {
     let statusVariant = {}

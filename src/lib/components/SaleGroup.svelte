@@ -3,8 +3,6 @@
   import Group from "$lib/models/Group";
   import Li from "./Li.svelte";
   import Sale from "./Sale.svelte";
-
-  const colors = ["slateblue", "purple", "deeppink"];
   export let group = new Group({});
   export let handler;
   export let index;

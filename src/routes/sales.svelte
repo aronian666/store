@@ -1,12 +1,10 @@
 <script context="module">
   export async function load({ session, fetch }) {
     if (!session.current_user) return { status: 303, redirect: "/login" };
-    const respose = await fetch("/products.json");
-    const products = await respose.json();
-    const response2 = await fetch("/groups.json");
-    const groups = await response2.json();
+    const response = await fetch("/sales.json");
+    const data = await response.json();
     return {
-      props: { products, groups },
+      props: data,
     };
   }
 </script>
@@ -42,6 +40,8 @@
   let paginate = [];
   let product;
   let group;
+  let cartProduct;
+  let index;
   onMount(async () => {
     const { data } = await Group.get("/users.json");
     codes.set(data.users.map((user) => user.code).filter((code) => code));
@@ -66,17 +66,18 @@
   </section>
   <section class="panel grid">
     <h3>Productos</h3>
-    <Filter
-      items={products}
-      bind:filtered
-      filter={[
-        { name: "Categoria", property: "categoryName" },
-        { name: "Precio", property: "sellPrice", range: true },
-        { name: "Cantidad", property: "quantity", range: true },
-      ]}
-    >
-      <Search items={filtered} bind:searched />
-    </Filter>
+    <div class="flex space-between">
+      <Filter
+        items={products}
+        bind:filtered
+        filter={[
+          { name: "Categoria", property: "categoryName" },
+          { name: "Precio", property: "sellPrice", range: true },
+          { name: "Cantidad", property: "quantity", range: true },
+        ]}
+      />
+      <Search items={filtered} bind:searched style="--color: red" />
+    </div>
 
     <div class="grid auto-fill" style="gap: 1.5rem; --size: 200px">
       {#each paginate as p (p._id)}
@@ -104,15 +105,32 @@
     <Pagination items={searched} bind:paginate />
   </section>
 </div>
-<AsideCart />
+<AsideCart bind:product bind:group bind:cartProduct bind:index />
 {#if product}
-  <Modal exit={true} handler={(e) => (product = null)}>
-    <Sale {product} />
+  <Modal
+    exit={true}
+    handler={(e) => {
+      product = null;
+      cartProduct = undefined;
+      index = null;
+    }}
+    let:handler
+  >
+    <Sale {product} {cartProduct} {index} {handler} />
   </Modal>
 {/if}
 {#if group}
-  <Modal exit={true} handler={(e) => (group = null)}>
-    <SaleGroup {group} handler={(e) => (group = null)} />
+  <Modal
+    exit={true}
+    handler={(e) => {
+      product = null;
+      cartProduct = undefined;
+      index = null;
+      group = null;
+    }}
+    let:handler
+  >
+    <SaleGroup {group} {handler} {cartProduct} {index} />
   </Modal>
 {/if}
 

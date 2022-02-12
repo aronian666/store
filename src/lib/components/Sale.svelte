@@ -4,6 +4,7 @@
   import Li from "./Li.svelte";
   import Fieldset from "./Fieldset.svelte";
   import { getContext } from "svelte";
+  import Group from "$lib/models/Group";
   export let product;
   export let handler;
   export let group;
@@ -12,7 +13,6 @@
     options: { price: product.sellPrice },
     product: product,
     unitProduct: product.unitProduct,
-    group,
   });
   let order = getContext("order");
   const codes = getContext("codes");
@@ -42,12 +42,15 @@
   const current_user = getContext("current_user");
   let permit = current_user.role != 2;
   const addProduct = (e) => {
-    if (index !== undefined) {
+    if (typeof index === "number") {
       if (confirm("¿Estas seguro de querer guardar los cambios?") === false)
         return;
       $order.cartProducts[index] = cartProduct;
       handler();
     } else {
+      cartProduct.group = group
+        ? new Group(JSON.parse(JSON.stringify(group)))
+        : null;
       $order.cartProducts = [cartProduct, ...$order.cartProducts];
       alert("Se ha añadido al carrito!");
     }
@@ -138,7 +141,7 @@
             icon="trending_flat"
             name="options[measures][width]"
             step="0.01"
-            title="Alto"
+            title="Largo"
             min="0"
             bind:input={cartProduct.options.measures.width}
           />
@@ -147,7 +150,7 @@
           <Fieldset
             icon="height"
             type="number"
-            title="Largo"
+            title="Alto"
             step="0.01"
             name="options[measures][height]"
             min="0"
@@ -170,6 +173,6 @@
     </fieldset>
   </section>
   <button disabled={cartProduct.unitProduct.quantity <= 0} type="submit">
-    {index !== undefined ? "Modificar" : "Agregar al carrito"}</button
+    {typeof index === "number" ? "Modificar" : "Agregar al carrito"}</button
   >
 </form>

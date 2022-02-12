@@ -30,6 +30,11 @@
       icon: "shopping_cart",
       text: "Carrito de venta",
     },
+    {
+      href: "/cuts",
+      icon: "cut",
+      text: "Cortar",
+    },
     { href: "/users", icon: "person", text: "Usuarios" },
   ].filter((item) =>
     current_user.can(item.href.substring(1, item.href.length))
@@ -38,8 +43,8 @@
 </script>
 
 <header class:show>
-  <nav class="flex column gap">
-    <div class="flex column gap">
+  <nav class="flex column">
+    <div class="flex column">
       <picture>
         <img src="/logo.svg" alt="logo" />
       </picture>
@@ -94,7 +99,7 @@
     grid-template-columns: 3rem auto;
     align-items: center;
     gap: 1rem;
-    padding: 1.25rem;
+    padding: 0.5rem 1rem;
     color: black;
   }
   a:hover {
@@ -110,7 +115,7 @@
   }
   img {
     width: 100%;
-    max-width: 100px;
+    max-width: 75px;
   }
   picture {
     display: grid;

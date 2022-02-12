@@ -23,10 +23,9 @@ const cartProductSchema = mongoose.Schema({
 })
 
 cartProductSchema.pre("validate", async function (next) {
-  const unit = await Unit.findById(this.unitProduct.unit)
-  const measures = Object.values(this.options.measures).reduce((a, b) => a * b, 1)
+  const unit = JSON.parse(JSON.stringify(await Unit.findById(this.unitProduct.unit)))
+  const measures = unit.measures ? Object.values(this.options.measures).reduce((a, b) => a * b, 1) : 1
   const quantity = this.options.quantity * measures / unit.divide
-  console.log(unit, measures)
   const unitProduct = await UnitProduct.findByIdAndUpdate(this.unitProduct._id, { $inc: { quantity: -quantity } })
   next()
 })

@@ -20,20 +20,16 @@
     <h4>Datos del cliente</h4>
     <div class="flex" style="gap: 1rem">
       <div>
-        <h5>Codigo</h5>
-        <p>{order._id}</p>
-      </div>
-      <div>
         <h5>Cliente</h5>
-        <p>{order.client.name}</p>
+        <p>{order.client.showName}</p>
       </div>
       <div>
         <h5>Telefono</h5>
-        <p>{order.client.phone}</p>
+        <p>{order.client.showPhone}</p>
       </div>
       <div>
         <h5>Direccion</h5>
-        <p>{order.client.direction}</p>
+        <p>{order.client.showDirection}</p>
       </div>
     </div>
   </section>

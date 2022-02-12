@@ -114,72 +114,74 @@
       {/each}
     </div>
   </section>
-  <section class="panel grid">
-    <h3>Vendidos</h3>
-    <div class="flex gap" style="--color: limegreen">
-      <div class="panel grid">
-        <h4>Unidades vendidas</h4>
-        <p>{totalQuantity}</p>
+  <div class="flex wrap gap">
+    <section class="panel flex column" style="flex: 1 1 auto">
+      <h3>Vendidos</h3>
+      <div class="flex gap" style="--color: limegreen">
+        <div class="panel grid">
+          <h4>Unidades vendidas</h4>
+          <p>{totalQuantity}</p>
+        </div>
+        <div class="panel grid">
+          <h4>Ganancia total</h4>
+          <p>S/. {totalGain}</p>
+        </div>
       </div>
-      <div class="panel grid">
-        <h4>Ganancia total</h4>
-        <p>S/. {totalGain}</p>
+      <div class="panel">
+        <PaginateTable
+          let:item
+          items={cartProducts}
+          header={[
+            "Cantidad",
+            "Unidad",
+            "Precio de venta",
+            "Total",
+            "Ganancia",
+            "Venta",
+          ]}
+        >
+          <tr>
+            <td>{item.equivalentQuantity}</td>
+            <td>
+              {item.unitProduct.unit.name}
+            </td>
+            <td>S./ {item.options.price}</td>
+            <td>S./ {item.total}</td>
+            <td>S./ {item.gain}</td>
+            <td>
+              <a href={`/orders/${item.order}`}>Ver detalles</a>
+            </td>
+          </tr>
+        </PaginateTable>
       </div>
-    </div>
-    <div class="panel">
-      <PaginateTable
-        let:item
-        items={cartProducts}
-        header={[
-          "Cantidad",
-          "Unidad",
-          "Precio de venta",
-          "Total",
-          "Ganancia",
-          "Venta",
-        ]}
-      >
-        <tr>
-          <td>{item.equivalentQuantity}</td>
-          <td>
-            {item.unitProduct.unit.name}
-          </td>
-          <td>S./ {item.options.price}</td>
-          <td>S./ {item.total}</td>
-          <td>S./ {item.gain}</td>
-          <td>
-            <a href={`/orders/${item.order}`}>Ver detalles</a>
-          </td>
-        </tr>
-      </PaginateTable>
-    </div>
-  </section>
-  <section class="panel grid">
-    <h3>Compras</h3>
-    <div class="flex gap" style="--color: tomato">
-      <div class="panel grid">
-        <h4>Unidades compradas</h4>
-        <p>{totalBuyQuantity}</p>
+    </section>
+    <section class="panel flex column" style="flex: 1 1 auto">
+      <h3>Compras</h3>
+      <div class="flex gap" style="--color: tomato">
+        <div class="panel grid">
+          <h4>Unidades compradas</h4>
+          <p>{totalBuyQuantity}</p>
+        </div>
+        <div class="panel grid">
+          <h4>Inversion Total</h4>
+          <p>S/. {totalInvestment}</p>
+        </div>
       </div>
-      <div class="panel grid">
-        <h4>Inversion Total</h4>
-        <p>S/. {totalInvestment}</p>
+      <div class="panel">
+        <PaginateTable
+          let:item
+          items={buys}
+          header={["Cantidad", "Precio de compra", "Proveedor"]}
+        >
+          <tr>
+            <td>{item.quantity}</td>
+            <td>S./ {item.buyPrice}</td>
+            <td>{item.provider.name}</td>
+          </tr>
+        </PaginateTable>
       </div>
-    </div>
-    <div class="panel">
-      <PaginateTable
-        let:item
-        items={buys}
-        header={["Cantidad", "Precio de compra", "Proveedor"]}
-      >
-        <tr>
-          <td>{item.quantity}</td>
-          <td>S./ {item.buyPrice}</td>
-          <td>{item.provider.name}</td>
-        </tr>
-      </PaginateTable>
-    </div>
-  </section>
+    </section>
+  </div>
 </div>
 
 {#if index != null}

@@ -60,7 +60,7 @@
             {#if cartProduct.unitProduct.unit.measures?.width}
               <Fieldset
                 icon="trending_flat"
-                title="Altura"
+                title="Largo"
                 type="number"
                 bind:input={cartProduct.options.measures.width}
                 name={`pruduct[${i}][width]`}
@@ -69,7 +69,7 @@
             {/if}
             {#if cartProduct.unitProduct.unit.measures?.height}
               <Fieldset
-                title={"Largo"}
+                title="Alto"
                 icon="height"
                 type="number"
                 bind:input={cartProduct.options.measures.height}
@@ -83,6 +83,7 @@
               class="holed"
               style="--color: red"
               on:click={(e) => {
+                if (!confirm("¿Esta seguro que desea eliminar?")) return;
                 $order.cartProducts.splice(i, 1);
                 order.set($order);
               }}>Eliminar</button
@@ -107,8 +108,9 @@
           S./ {$order.total}
         </div>
         <button
-          class="holed"
-          style="--color: red"
+          class="inverted"
+          style="--color: black"
+          disabled={$order.cartProducts.length === 0}
           on:click={(e) => (checkout = true)}>Pagar</button
         >
       </div>

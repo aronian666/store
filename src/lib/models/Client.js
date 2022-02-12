@@ -5,4 +5,13 @@ export default class Client {
     this.phone = phone
     this.direction = direction
   }
+  get showName() {
+    return this.name || "AYAVIRI"
+  }
+  get showPhone() {
+    return this.phone || "AYAVIRI"
+  }
+  get showDirection() {
+    return this.direction || "AYAVIRI"
+  }
 }

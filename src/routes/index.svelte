@@ -6,15 +6,12 @@
 </script>
 
 <script>
-  import { session } from "$app/stores";
   import Fieldset from "$lib/components/Fieldset.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import Table from "$lib/components/Table.svelte";
   import ActiveRecord from "$lib/models/ActiveRecord";
-
   import Order from "$lib/models/Order";
   import { getInputDate } from "$lib/scripts/date";
-  let current_user = $session.current_user;
   let orders = [];
   const day = 1000 * 60 * 60 * 24;
   let startDate = new Date();
@@ -26,9 +23,7 @@
     const startDate = new Date(start);
     const endDate = new Date(end);
     const request = `?start=${startDate.getTime()}&end=${endDate.getTime()}`;
-    const { data } = await ActiveRecord.get(
-      `/orders.json${request}&cart_products=true`
-    );
+    const { data } = await ActiveRecord.get(`/orders.json${request}`);
     return data;
   };
   $: {
@@ -46,69 +41,92 @@
   $: employees = Order.groupEmployess(orders);
   $: products = Order.groupProducts(orders);
   let loading = false;
-  $: {
-    console.log(orders);
-  }
+  let current = "Resumen";
 </script>
 
-<div class="grid" style="gap: 1rem" id="print">
-  <div class="panel">
-    <h3>Fecha</h3>
-    <div class="flex gap">
-      <Fieldset title="Inicio" type="date" bind:input={startDate} />
-      <Fieldset title="Final" type="date" bind:input={endDate} />
-    </div>
-  </div>
-  {#if loading}
-    <div class="grid place-content">
-      <Loading />
-    </div>
-  {:else}
+{#if current === "Resumen"}
+  <div class="grid" style="gap: 1rem" id="print">
     <div class="panel grid">
-      <h3>Resumen de ventas</h3>
-      <div class="flex wrap gap" style="--color: tomato">
-        <section class="panel grid gap">
-          <h4>Ventas</h4>
-          <p>{orders.length}</p>
-        </section>
-        <section class="panel grid gap">
-          <h4>Productos vendidos</h4>
-          <p>{Order.totalQuantity(orders)}</p>
-        </section>
-
-        <section class="panel grid gap">
-          <h4>Total vendido</h4>
-          <p>S./ {Order.totalSell(orders)}</p>
-        </section>
-        <section class="panel grid gap">
-          <h4>Ganancia total</h4>
-          <p>S./ {Order.totalGain(orders)}</p>
-        </section>
+      <h3>Fecha</h3>
+      <div class="flex gap">
+        <Fieldset title="Inicio" type="date" bind:input={startDate} />
+        <Fieldset title="Final" type="date" bind:input={endDate} />
       </div>
     </div>
-    <section class="panel grid">
-      <h3>Resumen de vendedores</h3>
-      <Table
-        items={employees}
-        properties={[
-          { name: "Venderor", property: "name" },
-          { name: "Numero de ventas", property: "ordersCount" },
-          { name: "Total vendido", property: "sellQuantity" },
-          { name: "Productos vendidos", property: "productQuantity" },
-        ]}
-      />
-    </section>
-    <section class="panel grid">
-      <h3>Resumen de productos</h3>
-      <Table
-        items={products}
-        properties={[
-          { name: "Producto", property: "name" },
-          { name: "Vendidos", property: "quantity" },
-          { name: "Recaudado", property: "totalSell" },
-          { name: "Ganancia", property: "gain" },
-        ]}
-      />
-    </section>
-  {/if}
-</div>
+    {#if loading}
+      <div class="grid place-content">
+        <Loading />
+      </div>
+    {:else}
+      <div class="panel grid">
+        <h3>Resumen de ventas</h3>
+        <div class="flex wrap gap" style="--color: #00000030">
+          <section class="panel grid gap">
+            <p class="b-500">Ventas</p>
+            <h3>{orders.length}</h3>
+          </section>
+          <section class="panel grid gap">
+            <p class="b-500">Productos vendidos</p>
+            <h3>{Order.totalQuantity(orders)}</h3>
+          </section>
+
+          <section class="panel grid gap">
+            <p class="b-500">Total vendido</p>
+            <h3>S./ {Order.totalSell(orders)}</h3>
+          </section>
+          <section class="panel grid gap">
+            <p class="b-500">Ganancia total</p>
+            <h3>S./ {Order.totalGain(orders)}</h3>
+          </section>
+        </div>
+      </div>
+      <div class="flex gap wrap">
+        <section class="panel flex column" style="flex: 1 1 auto">
+          <h3>Resumen de vendedores</h3>
+          <Table
+            items={employees}
+            count={5}
+            properties={[
+              { name: "Venderor", property: "name" },
+              { name: "Numero de ventas", property: "ordersCount" },
+              { name: "Total vendido", property: "sellQuantity" },
+              { name: "Productos vendidos", property: "productQuantity" },
+            ]}
+            let:item
+          >
+            <tr slot="tr">
+              <td>{item.name}</td>
+              <td>{item.ordersCount}</td>
+              <td>S./ {item.sellQuantity}</td>
+              <td>{item.productQuantity}</td>
+            </tr>
+          </Table>
+        </section>
+        <section class="panel flex column" style="flex: 1 1 auto">
+          <h3>Resumen de productos</h3>
+          <Table
+            items={products}
+            count={5}
+            properties={[
+              { name: "Producto", property: "name" },
+              { name: "Vendidos", property: "quantity" },
+              { name: "Recaudado", property: "totalSell" },
+              { name: "Ganancia", property: "gain" },
+            ]}
+            let:item
+          >
+            <tr slot="tr">
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>S./ {item.totalSell}</td>
+              <td>S./ {item.gain}</td>
+            </tr>
+          </Table>
+        </section>
+      </div>
+    {/if}
+  </div>
+{/if}
+{#if current === "Productos para comprar"}
+  <div>Productos para comprar</div>
+{/if}

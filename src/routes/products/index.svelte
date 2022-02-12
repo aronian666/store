@@ -26,44 +26,46 @@
 <svelte:head>
   <title>Productos</title>
 </svelte:head>
-<div class="flex space-between">
-  <Filter
-    items={products}
-    bind:filtered
-    filter={[
-      { name: "Categoria", property: "categoryName" },
-      { name: "Precio", property: "sellPrice", range: true },
-      { name: "Cantidad", property: "quantity", range: true },
+<div class="panel">
+  <div class="flex space-between">
+    <Filter
+      items={products}
+      bind:filtered
+      filter={[
+        { name: "Categoria", property: "categoryName" },
+        { name: "Precio", property: "sellPrice", range: true },
+        { name: "Cantidad", property: "quantity", range: true },
+      ]}
+    >
+      <Search items={filtered} bind:searched />
+    </Filter>
+    <button
+      on:click={(e) => Product.export(searched)}
+      class="inverted"
+      style="--color: blueviolet"
+    >
+      <Icon icon="download" />
+      Descargar
+    </button>
+  </div>
+
+  <Table
+    let:item
+    items={searched}
+    properties={[
+      { name: "Producto", property: "name" },
+      { name: "Cantidad", property: "quantity" },
+      { name: "Precio de venta", property: "sellPrice" },
+      { name: "Detalles", property: "options" },
     ]}
   >
-    <Search items={filtered} bind:searched />
-  </Filter>
-  <button
-    on:click={(e) => Product.export(searched)}
-    class="inverted"
-    style="--color: blueviolet"
-  >
-    <Icon icon="download" />
-    Descargar
-  </button>
+    <tr slot="tr">
+      <td>{item.name}</td>
+      <td>{item.quantity}</td>
+      <td>S./ {item.sellPrice}</td>
+      <td>
+        <a href={`/products/${item._id}`}>Detalles</a>
+      </td>
+    </tr>
+  </Table>
 </div>
-
-<Table
-  let:item
-  items={searched}
-  properties={[
-    { name: "Producto", property: "name" },
-    { name: "Cantidad", property: "quantity" },
-    { name: "Precio de venta", property: "sellPrice" },
-    { name: "Detalles", property: "options" },
-  ]}
->
-  <tr slot="tr">
-    <td>{item.name}</td>
-    <td>{item.quantity}</td>
-    <td>S./ {item.sellPrice}</td>
-    <td>
-      <a href={`/products/${item._id}`}>Detalles</a>
-    </td>
-  </tr>
-</Table>

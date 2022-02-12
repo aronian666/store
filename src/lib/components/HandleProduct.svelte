@@ -12,6 +12,8 @@
     unit_id: "",
   };
   const submitProduct = async (e) => {
+    if (product._id && !confirm("¿Estas seguro de querer guardar los cambios?"))
+      return;
     const { data } = await Product.send(e.target, { product });
     goto(`/products/${data._id}`);
   };

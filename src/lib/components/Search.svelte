@@ -5,9 +5,16 @@
   export let items;
   export let searched = [];
   let search = "";
+
   $: {
     searched = searchIndividual(items, search.split(" "));
   }
 </script>
 
-<Fieldset title="Buscar" placeholder="Buscar..." bind:input={search} />
+<Fieldset
+  {...$$restProps}
+  title="Buscar"
+  placeholder="Buscar..."
+  bind:input={search}
+  icon="search"
+/>

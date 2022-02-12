@@ -29,7 +29,7 @@
       id={name}
       {readonly}
       on:change={onChange}
-      style={`padding-left: ${icon ? "2rem" : "1rem"}`}
+      class:icon
       bind:value={input}
       {...$$restProps}
     />
@@ -43,6 +43,9 @@
 </fieldset>
 
 <style>
+  .icon {
+    padding-left: 2rem;
+  }
   div {
     position: relative;
     display: flex;
@@ -60,6 +63,8 @@
   }
   input {
     width: 100%;
+    box-shadow: var(--color, rgba(60, 66, 87, 0.16)) 0px 0px 0px 1px;
+    outline-color: var(--color, rgb(84 105 212 / 0.5));
   }
   button {
     padding: 0.5rem;

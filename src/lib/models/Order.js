@@ -36,7 +36,7 @@ export default class Order extends ActiveRecord {
     return this.employee.email
   }
   get clientName() {
-    return this.client.name
+    return this.client.showName
   }
   get changed() {
     if (this.cartProducts.find(c => c.changed)) return true

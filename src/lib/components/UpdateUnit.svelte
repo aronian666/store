@@ -9,6 +9,7 @@
   export let handler;
   let loading = getContext("loading");
   const updateProduct = async (e) => {
+    if (!confirm("¿Estas seguro de querer guardar los cambios?")) return;
     $loading = true;
     const response = await ActiveRecord.send(e.target, { product });
     if (!response.error) handler(response.data);
