@@ -15,17 +15,10 @@
   import Product from "$lib/models/Product";
   import Icon from "$lib/components/Icon.svelte";
   import Table from "$lib/components/Table.svelte";
-  import Switch from "$lib/components/Switch.svelte";
   export let products = [];
   products = products.map((product) => new Product(product));
   let filtered = [];
   let searched = [];
-  const updateProduct = async (product) => {
-    const { data, error } = await Product.send(
-      { action: "/products.json?_method=PUT", method: "post" },
-      { product }
-    );
-  };
 </script>
 
 <svelte:head>
@@ -61,23 +54,13 @@
       { name: "Producto", property: "name" },
       { name: "Cantidad", property: "quantity" },
       { name: "Precio de venta", property: "sellPrice" },
-      { name: "Reponer", property: "replenish" },
-      { name: "Detalles", property: "details" },
+      { name: "Detalles", property: "options" },
     ]}
   >
     <tr slot="tr">
       <td>{item.name}</td>
       <td>{item.quantity}</td>
       <td>S./ {item.sellPrice}</td>
-      <td>
-        <Switch
-          input={item.replenish}
-          onChange={(value) => {
-            item.replenish = value;
-            updateProduct(item);
-          }}
-        />
-      </td>
       <td>
         <a href={`/products/${item._id}`}>Detalles</a>
       </td>

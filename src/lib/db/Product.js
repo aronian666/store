@@ -19,6 +19,10 @@ const productSchema = mongoose.Schema({
     },
   ],
   code: String,
+  replenish: {
+    type: Boolean,
+    default: false
+  }
 })
 const Product = mongoose.model("Product", productSchema)
 // update, create and delete

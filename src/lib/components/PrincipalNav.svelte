@@ -1,6 +1,5 @@
 <script>
   import { page } from "$app/stores";
-  import ActiveRecord from "$lib/models/ActiveRecord";
   import { getContext } from "svelte";
   import Icon from "./Icon.svelte";
   const current_user = getContext("current_user");
@@ -8,7 +7,6 @@
     { href: "/", text: "Inicio", icon: "home" },
     {
       href: "/products",
-
       text: "Productos",
       icon: "article",
     },

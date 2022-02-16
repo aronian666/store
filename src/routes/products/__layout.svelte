@@ -7,17 +7,18 @@
 
 <script>
   import Nav from "$lib/components/Nav.svelte";
-
   $: pages = [
     {
       href: "/products",
+      name: "Resumen",
+    },
+    {
+      href: "/products/all",
       name: "Todos los productos",
-      icon: "fab fa-unity",
     },
     {
       href: "/products/new",
       name: "Crear producto",
-      icon: "fas fa-file",
     },
     { href: "/products/add", name: "Agregar excel" },
   ];
