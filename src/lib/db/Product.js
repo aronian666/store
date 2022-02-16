@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import UnitProduct from './UnitProduct'
 import Category from './Category'
 import Unit from './Unit'
+import Counter from './Counter'
+
 
 const productSchema = mongoose.Schema({
   name: {
@@ -22,7 +24,19 @@ const productSchema = mongoose.Schema({
   replenish: {
     type: Boolean,
     default: false
+  },
+  code: {
+    type: Number,
+    unique: true
   }
+})
+productSchema.pre("save", async function (next) {
+  if (!this.isNew) next()
+  const counter = await Counter.findOne({ model: "Product" })
+  this.code = counter.count
+  counter.count += 1
+  counter.save()
+  next()
 })
 const Product = mongoose.model("Product", productSchema)
 // update, create and delete

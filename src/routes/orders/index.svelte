@@ -77,6 +77,7 @@
       let:item
       items={searched}
       properties={[
+        { name: "Codigo", property: "code" },
         { name: "Cliente", property: "clientName" },
         { name: "Vendedor", property: "employeeName" },
         { name: "Productos", property: "productCount" },
@@ -85,6 +86,7 @@
       ]}
     >
       <tr slot="tr" class:changed={item.changed}>
+        <td>{item.code}</td>
         <td>{item.clientName}</td>
         <td>{item.employee.name}</td>
         <td>{item.cartProducts.length}</td>

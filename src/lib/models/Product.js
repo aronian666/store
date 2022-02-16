@@ -4,12 +4,13 @@ import Category from "./Category"
 import { reduceString } from "$lib/scripts/reduceString"
 import UnitProduct from "./UnitProduct"
 export default class Product extends ActiveRecord {
-  constructor({ _id, name, category, unitProducts = [], replenish }) {
+  constructor({ _id, name, category, unitProducts = [], replenish, code }) {
     super(_id)
     this.name = name
     if (category) this.category = new Category(category)
     this.unitProducts = unitProducts.map(unit => new UnitProduct(unit))
     this.replenish = replenish
+    this.code = code
   }
   get unitProduct() {
     return this.unitProducts[0]

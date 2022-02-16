@@ -6,7 +6,7 @@ import Client from "./Client";
 import User from "./User";
 
 export default class Order extends ActiveRecord {
-  constructor({ _id, cartProducts = [], client, employee, createdAt }) {
+  constructor({ _id, cartProducts = [], client, employee, createdAt, code }) {
     super(_id)
     this.cartProducts = cartProducts.map(cartProduct => {
       if (typeof cartProduct === "string") return cartProduct
@@ -15,6 +15,7 @@ export default class Order extends ActiveRecord {
     this.employee = new User(employee || {})
     this.client = new Client(client || {})
     this.createdAt = new Date(createdAt)
+    this.code = code
   }
   setProducts(array) {
     this.cartProducts = array.map(item => new CartProduct(item))

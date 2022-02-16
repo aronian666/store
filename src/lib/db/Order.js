@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose, { mongo } from 'mongoose'
 import CartProduct from './CartProduct'
 import Client from './Client'
+import Counter from './Counter'
 import Product from './Product'
 import Unit from './Unit'
 const orderSchema = mongoose.Schema({
@@ -17,9 +18,22 @@ const orderSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "CartProduct"
     }
-  ]
+  ],
+  code: {
+    type: Number,
+    unique: true
+  }
 }, { timestamps: true })
+orderSchema.pre("save", async function (next) {
+  if (!this.isNew) next()
+  const counter = await Counter.findOne({ model: "Order" })
+  this.code = counter.count
+  counter.count += 1
+  counter.save()
+  next()
+})
 const Order = mongoose.model("Order", orderSchema)
+
 Order.createAll = async function (orderObject) {
   const client = await Client.findOne({ name: orderObject.client.name })
   if (client) orderObject.client = client

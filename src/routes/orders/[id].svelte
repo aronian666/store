@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>Venta {order._id}</title>
+  <title>Codigo: {order.code}</title>
 </svelte:head>
 <div id="print" class="grid" style="gap: 1rem">
   <div class="flex" style="gap: 1rem">
