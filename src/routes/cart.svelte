@@ -52,7 +52,7 @@
             <Fieldset
               title="Precio por unidad"
               name={`product[${i}][unit][unitPrice]`}
-              input={cartProduct.unitPrice}
+              input={cartProduct.finalUnitPrice}
               readonly
               icon="attach_money"
             />

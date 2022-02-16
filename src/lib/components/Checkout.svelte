@@ -73,7 +73,7 @@
           <tr>
             <td>{cartProduct.options.quantity}</td>
             <td>{cartProduct.showName}</td>
-            <td>S./ {cartProduct.unitPrice}</td>
+            <td>S./ {cartProduct.finalUnitPrice}</td>
             <td>S./ {cartProduct.total}</td>
           </tr>
         {/each}

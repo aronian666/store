@@ -143,6 +143,14 @@
             step="0.01"
             title="Largo"
             min="0"
+            onFocus={(e) => {
+              if (cartProduct.options.measures.width === 1)
+                cartProduct.options.measures.width = null;
+            }}
+            onBlur={(e) => {
+              if (cartProduct.options.measures.width === null)
+                cartProduct.options.measures.width = 1;
+            }}
             bind:input={cartProduct.options.measures.width}
           />
         {/if}
@@ -154,6 +162,14 @@
             step="0.01"
             name="options[measures][height]"
             min="0"
+            onFocus={(e) => {
+              if (cartProduct.options.measures.height === 1)
+                cartProduct.options.measures.height = null;
+            }}
+            onBlur={(e) => {
+              if (cartProduct.options.measures.height === null)
+                cartProduct.options.measures.height = 1;
+            }}
             bind:input={cartProduct.options.measures.height}
           />
         {/if}
@@ -164,7 +180,7 @@
     <fieldset>
       <h5>Precio por unidad</h5>
       <p style="color: darkviolet; font-weight: 500">
-        S/. {cartProduct.unitPrice}
+        S/. {cartProduct.finalUnitPrice}
       </p>
     </fieldset>
     <fieldset>

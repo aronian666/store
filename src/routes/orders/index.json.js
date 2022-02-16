@@ -6,7 +6,6 @@ export async function get({ url }) {
   const start = new Date(parseInt(url.searchParams.get("start")))
   const end = new Date(parseInt(url.searchParams.get("end")))
   let orders = await Order.find({ createdAt: { $gte: start, $lt: end } }).populate("client").populate("employee")
-
   const orders_ids = orders.map(order => order._id)
   let cartProducts = await CartProduct.find({ order: { $in: orders_ids } }).populate("product").populate("unitProduct")
   const units = await Unit.find()

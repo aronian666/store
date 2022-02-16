@@ -9,6 +9,8 @@
   export let info;
   export let onChange;
   export let onClick;
+  export let onFocus;
+  export let onBlur;
 </script>
 
 <fieldset>
@@ -31,6 +33,8 @@
       on:change={onChange}
       class:icon
       bind:value={input}
+      on:focus={onFocus}
+      on:blur={onBlur}
       {...$$restProps}
     />
     {#if onClick}

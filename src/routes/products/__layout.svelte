@@ -13,10 +13,6 @@
       name: "Resumen",
     },
     {
-      href: "/products/all",
-      name: "Todos los productos",
-    },
-    {
       href: "/products/new",
       name: "Crear producto",
     },

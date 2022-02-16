@@ -22,8 +22,11 @@
   import Fieldset from "$lib/components/Fieldset.svelte";
   import { getInputDate } from "$lib/scripts/date";
   import Table from "$lib/components/Table.svelte";
+  import { getContext } from "svelte";
+
   export let orders;
-  orders = orders.map((order) => new Order(order));
+  const current_user = getContext("current_user");
+  orders = current_user.filterOrders(orders.map((order) => new Order(order)));
   let filtered = [];
   let searched = [];
   let start = getInputDate($page.url.searchParams.get("start"));

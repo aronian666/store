@@ -37,6 +37,10 @@
           <div class="details">
             <span class="b-500">Cantidad</span>
             <p>{cartProduct.options.quantity}</p>
+            <span class="b-500">P.U.</span>
+            <p style="color: DodgerBlue" class="b-500">
+              S./ {cartProduct.finalUnitPrice}
+            </p>
             <span class="b-500">Total</span>
             <p style="color: red" class="b-500">S./ {cartProduct.total}</p>
             <button

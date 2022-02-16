@@ -27,6 +27,7 @@ export default class CartProduct {
   get unitPrice() {
     return parseFloat((this.measuresValue * this.options.price / this.unitProduct.unit.divide).toFixed(2))
   }
+
   get total() {
     const price = this.unitPrice * this.options.quantity
     let rest = price % 1
@@ -34,6 +35,9 @@ export default class CartProduct {
     if (rest <= 0.5) rest = 0.5
     else rest = 1
     return parseFloat((parseInt(price) + rest).toFixed(1))
+  }
+  get finalUnitPrice() {
+    return (this.total / this.options.quantity).toFixed(2)
   }
   get equivalentQuantity() {
     return parseFloat((this.options.quantity * this.measuresValue / this.unitProduct.unit.divide).toFixed(2))

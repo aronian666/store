@@ -19,6 +19,10 @@ export default class User extends ActiveRecord {
   can(path) {
     return !this.cannot.includes(path)
   }
+  filterOrders(orders = []) {
+    if (this.role === 2) return orders.filter(order => order.employee._id === this._id)
+    return orders
+  }
   static getRoles() {
     return [
       { name: "Super Administrador", role: 0 },
@@ -26,4 +30,5 @@ export default class User extends ActiveRecord {
       { name: "Empleado", role: 2 }
     ]
   }
+
 }
