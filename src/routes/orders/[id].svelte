@@ -13,10 +13,14 @@
 </script>
 
 <svelte:head>
-  <title>Codigo: {order.code}</title>
+  <title>Codigo: {order.stringCode}</title>
 </svelte:head>
-<div id="print" class="grid" style="gap: 1rem">
-  <div class="flex" style="gap: 1rem">
+<h1>{order.stringCode}</h1>
+<div id="print" class="grid gap">
+  <picture>
+    <img src="/logo.svg" alt="Logo" />
+  </picture>
+  <div class="flex wrap" style="gap: 1rem">
     <div>
       <h5>Cliente</h5>
       <p>{order.client.showName}</p>
@@ -28,6 +32,10 @@
     <div>
       <h5>Direccion</h5>
       <p>{order.client.showDirection}</p>
+    </div>
+    <div>
+      <h5>Fecha</h5>
+      <p>{order.createdAt.toLocaleString()}</p>
     </div>
   </div>
   <table>
@@ -60,3 +68,21 @@
     >Imprimir</button
   >
 </section>
+
+<style>
+  picture {
+    display: grid;
+    place-content: center;
+  }
+  img {
+    width: 5rem;
+    aspect-ratio: 1/1;
+  }
+  table td {
+    padding: 0;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+  }
+</style>

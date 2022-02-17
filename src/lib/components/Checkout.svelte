@@ -58,6 +58,9 @@
     placeholder="Direccion"
   />
   <section id="print" class="grid gap">
+    <picture>
+      <img src="/logo.svg" alt="Logo" />
+    </picture>
     <h5>Resumen de venta</h5>
     <table>
       <thead>
@@ -100,3 +103,23 @@
     <option value={client.name} />
   {/each}
 </datalist>
+
+<style>
+  picture {
+    place-content: center;
+    display: none;
+  }
+  img {
+    width: 5rem;
+    aspect-ratio: 1/1;
+  }
+  table td {
+    padding: 0;
+    text-align: center;
+  }
+  @media print {
+    picture {
+      display: grid;
+    }
+  }
+</style>

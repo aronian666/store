@@ -76,7 +76,12 @@
           { name: "Cantidad", property: "quantity", range: true },
         ]}
       />
-      <Search items={filtered} bind:searched style="--color: red" />
+      <Search
+        items={filtered}
+        bind:searched
+        style="--color: red"
+        properties={["name", "stringCode", "categoryName"]}
+      />
     </div>
 
     <div class="grid auto-fill" style="gap: 1.5rem; --size: 200px">

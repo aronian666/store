@@ -52,7 +52,17 @@
         { name: "Vendedor", property: "employeeName" },
       ]}
     >
-      <Search items={filtered} bind:searched />
+      <Search
+        items={filtered}
+        bind:searched
+        properties={[
+          "stringCode",
+          "clientName",
+          "employeeName",
+          "productCount",
+          "createdAt",
+        ]}
+      />
       <Fieldset
         title="Inicio"
         type="date"
@@ -77,7 +87,7 @@
       let:item
       items={searched}
       properties={[
-        { name: "Codigo", property: "code" },
+        { name: "Codigo", property: "stringCode" },
         { name: "Cliente", property: "clientName" },
         { name: "Vendedor", property: "employeeName" },
         { name: "Productos", property: "productCount" },
@@ -86,7 +96,7 @@
       ]}
     >
       <tr slot="tr" class:changed={item.changed}>
-        <td>{item.code}</td>
+        <td>{item.stringCode}</td>
         <td>{item.clientName}</td>
         <td>{item.employee.name}</td>
         <td>{item.cartProducts.length}</td>

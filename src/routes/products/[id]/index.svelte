@@ -18,6 +18,7 @@
   import PaginateTable from "$lib/components/PaginateTable.svelte";
   import AddStock from "$lib/components/AddStock.svelte";
   import Buy from "$lib/models/Buy";
+  import Switch from "$lib/components/Switch.svelte";
 
   export let product;
   let cartProducts = [];
@@ -47,6 +48,12 @@
     if (!error) return goto("/products");
     alert("Ha ocurrido un error mientras se trataba de eliminar.");
   };
+  const updateProduct = async (product) => {
+    const { data, error } = await ActiveRecord.send(
+      { action: "/products.json?_method=PUT", method: "post" },
+      { product }
+    );
+  };
 </script>
 
 <svelte:head>
@@ -67,14 +74,24 @@
         >
       </div>
     </div>
-    <div class="flex" style="gap: 1rem">
-      <div class="panel grid" style="--color: deepskyblue">
+    <div class="flex" style="gap: 1rem; --color: skyblue">
+      <div class="panel grid">
         <h4>Nombre del producto</h4>
         <p>{product.name}</p>
       </div>
-      <div class="panel grid" style="--color: deepskyblue">
+      <div class="panel grid">
         <h4>Categoria</h4>
         <p>{product.category.name}</p>
+      </div>
+      <div class="panel grid">
+        <h4>Reponer</h4>
+        <Switch
+          input={product.replenish}
+          onChange={(value) => {
+            product.replenish = value;
+            updateProduct(product);
+          }}
+        />
       </div>
     </div>
   </section>

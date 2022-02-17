@@ -4,10 +4,12 @@
 
   export let items;
   export let searched = [];
+  export let properties;
+  console.log(properties);
   let search = "";
 
   $: {
-    searched = searchIndividual(items, search.split(" "));
+    searched = searchIndividual(items, search.split(" "), properties);
   }
 </script>
 
