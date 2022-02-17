@@ -20,7 +20,6 @@ const productSchema = mongoose.Schema({
       ref: "UnitProduct"
     },
   ],
-  code: String,
   replenish: {
     type: Boolean,
     default: false
