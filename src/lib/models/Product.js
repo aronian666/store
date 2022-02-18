@@ -10,11 +10,14 @@ export default class Product extends ActiveRecord {
     if (category) this.category = new Category(category)
     this.unitProducts = unitProducts.map(unit => new UnitProduct(unit))
     this.replenish = replenish
-    const zeros = 5 - code.toString().length
-    this.stringCode = `P${"0".repeat(zeros)}${code}`
+    this.code = code
   }
   get unitProduct() {
     return this.unitProducts[0]
+  }
+  get stringCode() {
+    const zeros = 5 - this.code.toString().length
+    return `P${"0".repeat(zeros)}${this.code}`
   }
   get categoryName() {
     return this.category.name

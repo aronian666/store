@@ -15,14 +15,15 @@ export default class Order extends ActiveRecord {
     this.employee = new User(employee || {})
     this.client = new Client(client || {})
     this.createdAt = new Date(createdAt)
-    if (code) {
-      const zeros = 5 - code.toString().length
-      this.stringCode = `V${"0".repeat(zeros > 0 ? zeros : 0)}${code}`
-    }
+    this.code = code
   }
   setProducts(array) {
     this.cartProducts = array.map(item => new CartProduct(item))
     return this
+  }
+  get stringCode() {
+    const zeros = 5 - this.code.toString().length
+    return `V${"0".repeat(zeros > 0 ? zeros : 0)}${this.code}`
   }
   get time() {
     return this.createdAt.getTime()

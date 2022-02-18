@@ -5,7 +5,6 @@
   export let items;
   export let searched = [];
   export let properties;
-  console.log(properties);
   let search = "";
 
   $: {
