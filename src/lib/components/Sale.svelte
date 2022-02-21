@@ -101,10 +101,12 @@
         S./ {cartProduct.unitProduct.sellPrice}
       </p>
     </fieldset>
-    <fieldset>
-      <h5>Precio de Compra</h5>
-      <p>S./ {cartProduct.unitProduct.buyPrice}</p>
-    </fieldset>
+    {#if permit}
+      <fieldset>
+        <h5>Precio de Compra</h5>
+        <p>S./ {cartProduct.unitProduct.buyPrice}</p>
+      </fieldset>
+    {/if}
     <fieldset>
       <h5>Precio Juliaca</h5>
       <p>S/. {cartProduct.unitProduct.otherPrice}</p>

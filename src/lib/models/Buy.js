@@ -1,5 +1,4 @@
 import ActiveRecord from "./ActiveRecord";
-
 export default class Buy extends ActiveRecord {
   constructor({ _id, sellPrice, quantity, product, unitProduct, buyPrice, provider, date }) {
     super(_id)

@@ -86,6 +86,13 @@
         </tr>
       </tbody>
     </table>
+    <div class="footer">
+      <p>
+        Revise su vuelto antes de retirarse, después no aceptamos reclamaciones.
+      </p>
+      <p>No se admiten cambios ni devoluciones.</p>
+      <p>Mas de 20 años a tu servicio.</p>
+    </div>
   </section>
   <div class="grid auto-fit gap" style="--size: 150px">
     <button
@@ -120,6 +127,14 @@
   @media print {
     picture {
       display: grid;
+    }
+  }
+  .footer {
+    display: none;
+  }
+  @media print {
+    .footer {
+      display: block;
     }
   }
 </style>

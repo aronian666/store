@@ -6,8 +6,6 @@ export async function get({ url }) {
   if (replenish) products = products.filter(product => product.replenish)
   return { body: products }
 }
-
-
 export async function post({ request }) {
   const data = await request.json()
   let product
@@ -20,7 +18,6 @@ export async function put({ request }) {
   const product = await Product.findByIdAndUpdate(data.product._id, data.product)
   return { body: product }
 }
-
 export async function del({ request }) {
   const data = await request.json()
   await Product.deleteOneAll(data.product._id)

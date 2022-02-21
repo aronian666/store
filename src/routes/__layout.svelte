@@ -16,13 +16,16 @@
   import { writable } from "svelte/store";
   import { session, navigating } from "$app/stores";
   import Loading from "$lib/components/Loading.svelte";
+  import ActiveRecord from "$lib/models/ActiveRecord";
 
   let current_user = $session.current_user
     ? new User($session.current_user)
     : null;
   setContext("current_user", current_user);
   let order = writable(new Order({ employee: $session.current_user }));
-  onMount(() => {
+  let codes = writable([]);
+  setContext("codes", codes);
+  onMount(async () => {
     const local = localStorage.getItem("cartProducts");
     if (local && local !== "undefined" && local !== "null") {
       $order.setProducts(JSON.parse(local));
@@ -31,6 +34,8 @@
     order.subscribe((value) => {
       localStorage.setItem("cartProducts", JSON.stringify(value.cartProducts));
     });
+    const { data } = await ActiveRecord.get("/users.json");
+    codes.set(data.users.map((user) => user.code).filter((code) => code));
   });
   setContext("order", order);
   $: loading = $navigating;

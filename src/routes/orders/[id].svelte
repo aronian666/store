@@ -62,6 +62,13 @@
       </tr>
     </tbody>
   </table>
+  <div class="footer">
+    <p>
+      Revise su vuelto antes de retirarse, después no aceptamos reclamaciones.
+    </p>
+    <p>No se admiten cambios ni devoluciones.</p>
+    <p>Mas de 20 años a tu servicio.</p>
+  </div>
 </div>
 <section>
   <button class="inverted" style="--color: red" on:click={(e) => window.print()}
@@ -84,5 +91,13 @@
   }
   h1 {
     text-align: center;
+  }
+  .footer {
+    display: none;
+  }
+  @media print {
+    .footer {
+      display: block;
+    }
   }
 </style>
