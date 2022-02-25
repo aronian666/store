@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import CartProduct from './CartProduct'
 import Client from './Client'
 import Counter from './Counter'
