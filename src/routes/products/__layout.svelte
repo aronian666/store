@@ -16,6 +16,8 @@
       href: "/products/new",
       name: "Crear producto",
     },
+    { href: "/products/units", name: "Unidades" },
+    { href: "/products/providers", name: "Proveedores" },
     { href: "/products/add", name: "Agregar excel" },
   ];
 </script>
