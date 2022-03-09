@@ -12,12 +12,12 @@
     <p>968248341 - 951522870</p>
   </div>
   {#if all}
-    <div class="flex space-around border">
+    <div class="flex wrap space-around border">
       <p>Cliente: {order.clientName}</p>
       <p>Direccion: {order.client.showDirection}</p>
       <p>Telefono: {order.client.showPhone}</p>
     </div>
-    <div class="flex space-around border">
+    <div class="flex wrap space-around border">
       <p>Fecha: {order.createdAt.toLocaleString()}</p>
       <p>Vendedor: {order.employee.name}</p>
     </div>
@@ -86,7 +86,7 @@
     aspect-ratio: 1/1;
   }
   tfoot td {
-    font-weight: 600;
+    font-weight: 700;
   }
   td {
     padding: 0 0.25rem;
@@ -101,6 +101,6 @@
     font-size: 1rem;
   }
   #print {
-    font-family: "Smooch Sans";
+    font-family: "Roboto";
   }
 </style>
