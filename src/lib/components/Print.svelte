@@ -13,9 +13,9 @@
   </div>
   {#if all}
     <div class="flex wrap space-around border">
-      <p>Cliente: {order.clientName}</p>
-      <p>Direccion: {order.client.showDirection}</p>
-      <p>Telefono: {order.client.showPhone}</p>
+      <p>Cliente: <b>{order.clientName}</b></p>
+      <p>Direccion: <b>{order.client.showDirection}</b></p>
+      <p>Telefono: <b>{order.client.showPhone}</b></p>
     </div>
     <div class="flex wrap space-around border">
       <p>Fecha: {order.createdAt.toLocaleString()}</p>
@@ -82,11 +82,12 @@
     place-content: center;
   }
   img {
-    width: 5rem;
+    width: 8rem;
     aspect-ratio: 1/1;
   }
   tfoot td {
     font-weight: 700;
+    font-size: 1rem;
   }
   td {
     padding: 0 0.125rem;
@@ -98,6 +99,6 @@
     padding: 0.25rem 0;
   }
   #print {
-    font-family: "Roboto";
+    font-family: "Roboto Condensed";
   }
 </style>
