@@ -12,12 +12,12 @@
     <p>968248341 - 951522870</p>
   </div>
   {#if all}
-    <div class="flex wrap space-around border">
+    <div class="flex wrap space-around border" style="gap: .125rem">
       <p>Cliente: <b>{order.clientName}</b></p>
       <p>Direccion: <b>{order.client.showDirection}</b></p>
       <p>Telefono: <b>{order.client.showPhone}</b></p>
     </div>
-    <div class="flex wrap space-around border">
+    <div class="flex wrap space-around border" style="gap: .125rem">
       <p>Fecha: {order.createdAt.toLocaleString()}</p>
       <p>Vendedor: {order.employee.name}</p>
     </div>
@@ -87,11 +87,11 @@
   }
   tfoot td {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1rem !important;
   }
-  td {
+  td,
+  th {
     padding: 0 0.125rem;
-    font-size: 0.9rem;
   }
   .right {
     text-align: right;
@@ -101,5 +101,8 @@
   }
   #print {
     font-family: "Roboto Condensed";
+  }
+  #print * {
+    font-size: 0.65rem;
   }
 </style>
