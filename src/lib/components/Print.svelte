@@ -97,6 +97,9 @@
   #print > div {
     padding: 0.25rem 0;
   }
+  #print * {
+    font-size: 1rem;
+  }
   #print {
     font-family: "Smooch Sans";
   }
