@@ -89,16 +89,13 @@
     font-weight: 700;
   }
   td {
-    padding: 0 0.25rem;
+    padding: 0 0.125rem;
   }
   .right {
     text-align: right;
   }
   #print > div {
     padding: 0.25rem 0;
-  }
-  #print * {
-    font-size: 1rem;
   }
   #print {
     font-family: "Roboto";
