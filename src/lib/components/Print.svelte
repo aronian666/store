@@ -44,8 +44,8 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">TOTAL A PAGAR</td>
-          <td class="right">{order.total.toFixed(2)}</td>
+          <td colspan="2">TOTAL A PAGAR</td>
+          <td colspan="2" class="right">{order.total.toFixed(2)}</td>
         </tr>
       </tfoot>
     </table>
@@ -87,10 +87,11 @@
   }
   tfoot td {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 2rem;
   }
   td {
     padding: 0 0.125rem;
+    font-size: 0.9rem;
   }
   .right {
     text-align: right;
