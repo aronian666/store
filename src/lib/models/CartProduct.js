@@ -46,8 +46,12 @@ export default class CartProduct {
     return parseFloat((this.total - this.equivalentQuantity * this.unitProduct.buyPrice).toFixed(2))
   }
   get showName() {
-    const measures = this.unitProduct.unit.measures ? "(" + Object.values(this.options.measures).join(" X ") + ")" : ""
-    return `${this.product.name} ${measures}`
+    const measures = []
+    for (const measure in this.unitProduct.unit.measures) {
+      if (this.unitProduct.unit.measures[measure]) measures.push(this.options.measures[measure])
+    }
+    const measuresString = measures.length ? "(" + measures.join(" X ") + ")" : ""
+    return `${this.product.name} ${measuresString}`
   }
   get name() {
     return this.product.name

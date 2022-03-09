@@ -1,0 +1,103 @@
+<script>
+  export let order;
+  export let all = true;
+</script>
+
+<div id="print">
+  <div class="border">
+    <picture>
+      <img src="/logo.svg" alt="logo" />
+    </picture>
+    <p>Jr. Grau #160 - Ayaviri</p>
+    <p>968248341 - 951522870</p>
+  </div>
+  {#if all}
+    <div class="flex space-around border">
+      <p>Cliente: {order.clientName}</p>
+      <p>Direccion: {order.client.showDirection}</p>
+      <p>Telefono: {order.client.showPhone}</p>
+    </div>
+    <div class="flex space-around border">
+      <p>Fecha: {order.createdAt.toLocaleString()}</p>
+      <p>Vendedor: {order.employee.name}</p>
+    </div>
+  {/if}
+  <div class="grid">
+    <table>
+      <thead>
+        <tr>
+          <th>CANT</th>
+          <th>DESCRIPCIÓN</th>
+          <th>P. UNIT</th>
+          <th>P. TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each order?.cartProducts as cartProduct}
+          <tr>
+            <td>{cartProduct.options.quantity}</td>
+            <td>{cartProduct.showName}</td>
+            <td class="right">{cartProduct.finalUnitPrice}</td>
+            <td class="right">{cartProduct.total.toFixed(2)}</td>
+          </tr>
+        {/each}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">TOTAL A PAGAR</td>
+          <td class="right">{order.total.toFixed(2)}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div>
+    {#if all}
+      <p class="cursive">Revise su vuelto antes de retirarse.</p>
+      <p class="cursive">No se admiten cambios ni devoluciones de productos.</p>
+      <p>GRACIAS POR SU COMPRA</p>
+    {/if}
+    <p>VIDRIOCENTRO mas de 20 años a tu servicio</p>
+  </div>
+</div>
+{#if $$slots.buttons}
+  <slot name="buttons" />
+{:else}
+  <div class="grid">
+    <button on:click={(e) => window.print()}>Imprimir</button>
+  </div>
+{/if}
+
+<style>
+  .border {
+    border-bottom: 1px dashed black;
+  }
+  .cursive {
+    font-style: italic;
+  }
+  p {
+    text-align: center;
+  }
+  picture {
+    display: grid;
+    place-content: center;
+  }
+  img {
+    width: 5rem;
+    aspect-ratio: 1/1;
+  }
+  tfoot td {
+    font-weight: 600;
+  }
+  td {
+    padding: 0 0.25rem;
+  }
+  .right {
+    text-align: right;
+  }
+  #print > div {
+    padding: 0.25rem 0;
+  }
+  #print {
+    font-family: "Smooch Sans";
+  }
+</style>

@@ -6,10 +6,13 @@
 
   import { getContext, onMount } from "svelte";
   import Fieldset from "./Fieldset.svelte";
+  import Modal from "./Modal.svelte";
+  import Print from "./Print.svelte";
   let order = getContext("order");
   let loading = getContext("loading");
   let handler = getContext("handler");
   let clients = [];
+  let print = false;
   const submitOrder = async (e) => {
     loading.set(true);
     const { data, error } = await ActiveRecord.send(e.target, {
@@ -57,10 +60,7 @@
     bind:input={$order.client.direction}
     placeholder="Direccion"
   />
-  <section id="print" class="grid gap">
-    <picture>
-      <img src="/logo.svg" alt="Logo" />
-    </picture>
+  <section class="grid gap">
     <h5>Resumen de venta</h5>
     <table>
       <thead>
@@ -86,55 +86,25 @@
         </tr>
       </tbody>
     </table>
-    <div class="footer">
-      <p>
-        Revise su vuelto antes de retirarse, después no aceptamos reclamaciones.
-      </p>
-      <p>No se admiten cambios ni devoluciones.</p>
-      <p>Mas de 20 años a tu servicio.</p>
-    </div>
   </section>
   <div class="grid auto-fit gap" style="--size: 150px">
     <button
       type="button"
       class="inverted"
-      on:click={(e) => window.print()}
+      on:click={(e) => (print = true)}
       style="--color: black">Imprimir</button
     >
     <button type="submit" class="inverted" style="--color: red">Pagar</button>
   </div>
 </form>
+{#if print}
+  <Modal handler={(e) => (print = false)}>
+    <Print order={$order} all={false} />
+  </Modal>
+{/if}
 
 <datalist id="clients">
   {#each clients as client}
     <option value={client.name} />
   {/each}
 </datalist>
-
-<style>
-  picture {
-    place-content: center;
-    display: none;
-  }
-  img {
-    width: 5rem;
-    aspect-ratio: 1/1;
-  }
-  table td {
-    padding: 0;
-    text-align: center;
-  }
-  @media print {
-    picture {
-      display: grid;
-    }
-  }
-  .footer {
-    display: none;
-  }
-  @media print {
-    .footer {
-      display: block;
-    }
-  }
-</style>
