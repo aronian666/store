@@ -10,7 +10,7 @@ export async function post({ request }) {
     const valid = await user.validPassword(password)
     if (valid) {
       const token = user.generateJWT()
-      const jwt = serialize("jwt", token, { maxAge: 30 * 24 * 3600 * 1000, httpOnly: true })
+      const jwt = serialize("jwt", token, { maxAge: 30 * 24 * 3600, httpOnly: true })
       return { status: 303, headers: { 'Set-Cookie': jwt, Location: '/' } }
     }
     return { status: 303, headers: { Location: `/login?error=Invalid password` } }

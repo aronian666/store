@@ -35,8 +35,14 @@ userSchema.methods.generateJWT = function () {
 const User = mongoose.model("User", userSchema)
 User.auth = async function (token) {
   if (!token) return
-  const decode = jwt.verify(token, hash)
-  const user = await User.findById(decode.id)
-  return user
+  try {
+    const decode = jwt.verify(token, hash)
+    const user = await User.findById(decode.id)
+    return user
+  }
+  catch {
+    return null
+  }
+
 }
 export default User
