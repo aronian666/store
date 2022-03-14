@@ -45,8 +45,9 @@ Product.createAll = async function (productObject) {
   return product
 }
 Product.updateOneAll = async function (productObject) {
-  await Promise.all(productObject.unitProducts.map(unitProduct => {
-    return UnitProduct.findByIdAndUpdate(unitProduct._id, unitProduct)
+  productObject.unitProducts = await Promise.all(productObject.unitProducts.map(unitProduct => {
+    if (unitProduct._id) return UnitProduct.findByIdAndUpdate(unitProduct._id, unitProduct)
+    return UnitProduct.create(unitProduct)
   }))
   const product = await Product.findByIdAndUpdate(productObject._id, productObject)
   return product

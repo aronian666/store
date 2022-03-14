@@ -18,6 +18,8 @@
   import Switch from "$lib/components/Switch.svelte";
   export let products = [];
   products = products.map((product) => new Product(product));
+  const product = products.find((product) => product.unitProducts.length === 0);
+  console.log(product);
   let filtered = [];
   let searched = [];
   const updateProduct = async (product) => {
