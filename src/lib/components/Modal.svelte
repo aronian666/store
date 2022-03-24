@@ -8,6 +8,7 @@
   export let exit = false;
   export let index = 1;
   export let loading = false;
+  export let className = "";
   let loadingWritable = writable(loading);
   setContext("loading", loadingWritable);
   setContext("handler", handler);
@@ -28,7 +29,7 @@
   {#if $loadingWritable}
     <Loading />
   {:else}
-    <section id="modal">
+    <section id="modal" class={className}>
       <slot {handler} />
       <span on:click={handler}>
         <Icon icon="close" />
@@ -50,7 +51,7 @@
     align-items: center;
   }
   #modal {
-    padding: 1.5rem;
+    padding: 1rem;
     background-color: #fff;
     border-radius: 0.75rem;
     position: relative;

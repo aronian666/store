@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
   password: { ...validateString, minlength: 6 },
   role: {
     type: Number,
-    default: 1
+    default: 3
   },
-  code: String
+  code: String,
 })
 userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10)

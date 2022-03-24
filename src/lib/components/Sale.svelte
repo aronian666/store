@@ -5,6 +5,7 @@
   import Fieldset from "./Fieldset.svelte";
   import { getContext } from "svelte";
   import Group from "$lib/models/Group";
+  import Prompt from "./Prompt.svelte";
   export let product;
   export let handler;
   export let group;
@@ -16,6 +17,7 @@
   });
   let order = getContext("order");
   const codes = getContext("codes");
+  let editCode = false;
   let previus_id = product._id;
   const nameChange = (id) => {
     if (previus_id !== id) {
@@ -55,13 +57,6 @@
       alert("Se ha añadido al carrito!");
     }
     cartProduct = new CartProduct(cartProduct.toObject());
-  };
-  const edit = () => {
-    if (permit) return null;
-    return (e) => {
-      const code = prompt("Ingresa un codigo para editar:", "");
-      if ($codes.includes(code)) permit = true;
-    };
   };
 </script>
 
@@ -123,7 +118,7 @@
         bind:input={cartProduct.options.price}
         min="0"
         readonly={!permit}
-        onClick={edit()}
+        onClick={(e) => (editCode = true)}
       />
       <Fieldset
         icon="format_align_justify"
@@ -194,3 +189,19 @@
     {typeof index === "number" ? "Modificar" : "Agregar al carrito"}</button
   >
 </form>
+
+{#if editCode}
+  <Prompt
+    title="Ingresa un codigo para editar"
+    handler={(e) => (editCode = false)}
+    type="password"
+    success={(code) => {
+      if ($codes.includes(code)) {
+        permit = true;
+        editCode = false;
+        return alert("Ahora puedes editar");
+      }
+      alert("El codigo no es valido");
+    }}
+  />
+{/if}

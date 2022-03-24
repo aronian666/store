@@ -9,6 +9,7 @@ export default class User extends ActiveRecord {
     this.code = code
   }
   get cannot() {
+    if (this.role === 3) return ["products", "groups", "users", "cuts", "sales", "orders", "cart"]
     if (this.role === 2) return ["products", "groups", "users"]
     if (this.role === 1) return []
     return []
@@ -27,8 +28,8 @@ export default class User extends ActiveRecord {
     return [
       { name: "Super Administrador", role: 0 },
       { name: "Administrador", role: 1 },
-      { name: "Empleado", role: 2 }
+      { name: "Empleado", role: 2 },
+      { name: "Invitado", role: 3 }
     ]
   }
-
 }

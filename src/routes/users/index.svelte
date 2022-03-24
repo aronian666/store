@@ -24,6 +24,14 @@
   export let users = [];
   users = users.map((user) => new User(user));
   let u;
+  const deleteUser = async (user) => {
+    if (!confirm("¿Esta seguro que desea eliminar este usuario?")) return;
+    const { data, error } = await User.send(
+      { action: "/users.json?_method=DELETE", method: "post" },
+      { user }
+    );
+    location.reload();
+  };
 </script>
 
 <svelte:head>
@@ -59,9 +67,19 @@
         <td>{user.email}</td>
         <td>{user.roleString}</td>
         <td>
-          <button disabled={current_user.role != 0} on:click={(e) => (u = user)}
-            >Editar</button
-          >
+          <div class="flex gap wrap">
+            <button
+              disabled={current_user.role != 0}
+              on:click={(e) => (u = user)}>Editar</button
+            >
+            <button
+              on:click={(e) => deleteUser(user)}
+              class="inverted"
+              style="--color: red"
+            >
+              Eliminar
+            </button>
+          </div>
         </td>
       </tr>
     {/each}

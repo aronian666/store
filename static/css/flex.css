@@ -4,6 +4,12 @@
 .flex.column {
   flex-direction: column;
 }
+.flex.column.reverse {
+  flex-direction: column-reverse;
+}
+.flex.reverse {
+  flex-direction: row-reverse;
+}
 .flex.wrap {
   flex-wrap: wrap;
 }

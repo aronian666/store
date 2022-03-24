@@ -19,8 +19,6 @@
   import Search from "$lib/components/Search.svelte";
   import Group from "$lib/models/Group";
   import Product from "$lib/models/Product";
-  import { onMount, setContext } from "svelte";
-  import { writable } from "svelte/store";
   export let products = [];
   products = products.map((product) => new Product(product));
   export let groups = [];
