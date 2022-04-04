@@ -63,7 +63,10 @@
   <slot name="buttons" />
 {:else}
   <div class="grid">
-    <button on:click={(e) => window.print()}>Imprimir</button>
+    <button on:click={(e) => {
+      window.scroll(0,0)
+      window.print()
+    }}>Imprimir</button>
   </div>
 {/if}
 
