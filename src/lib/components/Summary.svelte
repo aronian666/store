@@ -8,6 +8,8 @@
   import Product from "$lib/models/Product";
   import { getInputDate } from "$lib/scripts/date";
   import { onMount } from "svelte";
+  import Modal from "./Modal.svelte";
+  import OrdersPerProduct from "./OrdersPerProduct.svelte";
   import Switch from "./Switch.svelte";
   let orders = [];
   const day = 1000 * 60 * 60 * 24;
@@ -42,6 +44,10 @@
   }
   $: employees = Order.groupEmployess(orders);
   $: products = Order.groupProducts(orders);
+  let openDetails = {
+    open: false,
+    cartProducts: [],
+  };
   let loading = false;
   let current = "Resumen";
   const updateProduct = async (product) => {
@@ -126,7 +132,15 @@
               let:item
             >
               <tr slot="tr">
-                <td>{item.name}</td>
+                <td
+                  ><span
+                    on:click={(e) =>
+                      (openDetails = {
+                        open: true,
+                        cartProducts: item.cartProducts,
+                      })}>{item.name}</span
+                  ></td
+                >
                 <td>{item.quantity}</td>
                 <td>S./ {item.totalSell}</td>
                 <td>S./ {item.gain}</td>
@@ -170,3 +184,19 @@
     </Table>
   {/if}
 </div>
+
+{#if openDetails.open}
+  <Modal handler={(e) => (openDetails = false)}>
+    <OrdersPerProduct cartProducts={openDetails.cartProducts} />
+  </Modal>
+{/if}
+
+<style>
+  span {
+    cursor: pointer;
+  }
+  span:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+</style>

@@ -77,4 +77,5 @@ export default class CartProduct {
     }
     return products
   }
+
 }
