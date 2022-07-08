@@ -13,6 +13,11 @@
 <form action="/units.json" method="post" on:submit|preventDefault={submitUnit}>
   <Fieldset title="Nombre" name="unit[name]" bind:input={unit.name} />
   <Fieldset
+    title="Nombre corto"
+    name="unit[shortName]"
+    bind:input={unit.shortName}
+  />
+  <Fieldset
     name="unit[divide]"
     type="number"
     title="Divide"

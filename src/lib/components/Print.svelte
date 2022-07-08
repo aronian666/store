@@ -27,6 +27,7 @@
       <thead>
         <tr>
           <th>CANT</th>
+          <th>UND</th>
           <th>DESCRIPCIÓN</th>
           <th>P. UNIT</th>
           <th>P. TOTAL</th>
@@ -36,6 +37,7 @@
         {#each order?.cartProducts as cartProduct}
           <tr>
             <td>{cartProduct.options.quantity}</td>
+            <td>{cartProduct.unitProduct.unit.shortName}</td>
             <td>{cartProduct.showName}</td>
             <td class="right">{cartProduct.finalUnitPrice}</td>
             <td class="right">{cartProduct.total.toFixed(2)}</td>
@@ -63,10 +65,12 @@
   <slot name="buttons" />
 {:else}
   <div class="grid">
-    <button on:click={(e) => {
-      window.scroll(0,0)
-      window.print()
-    }}>Imprimir</button>
+    <button
+      on:click={(e) => {
+        window.scroll(0, 0);
+        window.print();
+      }}>Imprimir</button
+    >
   </div>
 {/if}
 

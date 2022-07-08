@@ -5,6 +5,10 @@ const unitSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  shortName: {
+    type: String,
+    default: "",
+  },
   measures: {
     width: Boolean,
     height: Boolean
