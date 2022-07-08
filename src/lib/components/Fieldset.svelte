@@ -67,8 +67,6 @@
   }
   input {
     width: 100%;
-    box-shadow: var(--color, rgba(60, 66, 87, 0.16)) 0px 0px 0px 1px;
-    outline-color: var(--color, rgb(84 105 212 / 0.5));
   }
   button {
     padding: 0.5rem;

@@ -26,4 +26,20 @@ export default class ActiveRecord {
   static find(array = [], string = "", properties = []) {
     return array.find(item => properties.reduce((init, property) => init || (reduceString(item[property]) === reduceString(string)), false))
   }
+  static async create(record) {
+    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json`, method: "post" }, record)
+    return data
+  }
+  static async update(record) {
+    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=PUT`, method: "post" }, record)
+    return data
+  }
+  static async del(record) {
+    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=DEL`, method: "post" }, record)
+    return data
+  }
+  static async all() {
+    const { data } = await this.get(`/${this.name.toLowerCase()}s.json`)
+    return data
+  }
 }

@@ -35,7 +35,7 @@
       localStorage.setItem("cartProducts", JSON.stringify(value.cartProducts));
     });
     const { data } = await ActiveRecord.get("/users.json");
-    codes.set(data.users.map((user) => user.code).filter((code) => code));
+    codes.set(data.map((user) => user.code).filter((code) => code));
   });
   setContext("order", order);
   $: loading = $navigating;

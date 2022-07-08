@@ -1,66 +1,93 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Roboto+Condensed:wght@400;700&display=swap');
 @import "./form.css";
 @import "./flex.css";
 @import "./grid.css";
 @import "./Table.css";
+
 :root {
   --purple: rgb(84, 105, 212);
   --gray: rgb(220, 220, 220);
+  --text: rgb(112, 117, 122);
+  --blue: #1a73e8;
 }
+
+html {
+  font-size: 14px;
+  color: rgb(60, 64, 67);
+}
+
 body {
-  background-color: #fbfbfb;
-  font-family: "Montserrat", Lato, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
 .b-500 {
   font-weight: 500;
 }
+
 .b-600 {
   font-weight: 600;
 }
+
 * {
   margin: 0;
   box-sizing: border-box;
-  
+
 }
 
 
-a.button, button {
-  padding: 0.75rem 1rem;
+a.button,
+button {
+  padding: 0.5rem .75rem;
   border-radius: .25rem;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  font-size: .8rem;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
 }
-a.button.inverted, button.inverted {
+
+a.button:disabled,
+button:disabled {
+  opacity: .5;
+}
+
+a.button.inverted,
+button.inverted {
   color: white;
-  background-color: var(--color);
+  background-color: var(--color, var(--blue));
 }
-a.button.holed, button.holed {
+
+a.button.holed,
+button.holed {
   border: 1px solid var(--color, var(--gray));
   background-color: white;
   color: var(--color, var(--gray));
 }
-a.button.holed:hover, button.holed:hover {
-  background-color:var(--color, var(--gray));
+
+a.button.holed:hover,
+button.holed:hover {
+  background-color: var(--color, var(--gray));
   color: white;
 }
 
 a {
   text-decoration: none;
   color: red;
-  font-weight: 600;
+  font-weight: 500;
 }
+
 a:hover {
   text-decoration: underline;
 }
+
 .gap {
   gap: .5rem !important;
 }
+
 .panel {
   padding: var(--size, 1rem);
   box-shadow: 0 0 0.25rem var(--color, var(--gray));
@@ -69,23 +96,34 @@ a:hover {
   gap: var(--gap, 1rem);
   background-color: white;
 }
+
 p {
   font-size: .85rem;
 }
+
 @media print {
   body * {
     visibility: hidden;
   }
-  #print, #print * {
+
+  #print,
+  #print * {
     visibility: visible;
     --size: 0.25rem;
     --gap: 0.25rem;
   }
+
   #print {
     display: block;
     position: fixed;
     left: 0;
     top: 0;
   }
-  html, body {margin: 0; height: 100%; overflow: hidden}
+
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+  }
 }
