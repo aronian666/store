@@ -65,14 +65,7 @@
     </tbody>
   </table>
 </div>
-<div class="grid gap">
-  <button on:click={(e) => (print = true)}>Imprimir</button>
-  <a
-    href={`/contracts?order=${order._id}`}
-    class="inverted button"
-    style="--color: red">Programar servicio</a
-  >
-</div>
+<button on:click={(e) => (print = true)}>Imprimir</button>
 
 {#if print}
   <Modal handler={(e) => (print = false)} let:handler>
