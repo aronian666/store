@@ -4,13 +4,15 @@ import { assingStaticMethods } from './functions'
 import Counter from './Counter'
 
 const contractSchema = mongoose.Schema({
-  experts: [{
-    type: mongoose.Types.ObjectId,
-    required: true,
-    ref: "User"
-  }],
+  experts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User"
+    }
+  ],
   service: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Service"
   },
@@ -33,7 +35,7 @@ const contractSchema = mongoose.Schema({
   photos: [String],
   payments: [],
   quote: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Quote",
     required: true
   },
