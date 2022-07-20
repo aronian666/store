@@ -17,8 +17,6 @@
     export let quotes = [];
 
     quotes = quotes.map((quote) => new Quote(quote));
-
-    console.log(quotes);
     let searched = [];
     const quoteId = $page.url.searchParams.get("quote");
     let modal = quotes.find((quote) => quote._id == quoteId);

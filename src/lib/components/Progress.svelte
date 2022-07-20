@@ -2,7 +2,6 @@
   export let steps = [];
   export let currentStep = 2;
   export let onClick;
-  console.log(steps);
   $: percentage = (currentStep * 100) / (steps.length - 1);
 </script>
 

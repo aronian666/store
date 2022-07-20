@@ -1,8 +1,4 @@
 import mongoose from 'mongoose'
-import User from './User'
-import Order from './Order'
-import Service from './Service'
-import Quote from './Quote'
 import { assingStaticMethods } from './functions'
 import Counter from './Counter'
 

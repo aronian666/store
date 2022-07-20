@@ -3,7 +3,6 @@
 
     export let cartProducts = [];
     let orders = groupBy(cartProducts, "order");
-    console.log(orders);
     const sum = (cartProducts = []) => {
         return cartProducts.reduce((a, b) => a + b.options.quantity, 0);
     };
