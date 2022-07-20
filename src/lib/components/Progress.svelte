@@ -2,6 +2,7 @@
   export let steps = [];
   export let currentStep = 2;
   export let onClick;
+  console.log(steps);
   $: percentage = (currentStep * 100) / (steps.length - 1);
 </script>
 
@@ -14,9 +15,10 @@
     <div
       on:click={(e) => onClick(step, i)}
       class="step"
+      style={`--color: ${step.color}`}
       class:active={i <= currentStep}
     >
-      {step}
+      {step.name}
     </div>
   {/each}
 </div>
@@ -36,11 +38,13 @@
   }
   .flex::before {
     width: var(--percentage);
-    background-color: deepskyblue;
+    background-color: black;
     z-index: 1;
   }
   .step.active {
-    --color: deepskyblue;
+    color: white;
+    background-color: var(--color);
+    font-weight: bold;
   }
   .step {
     width: 100px;

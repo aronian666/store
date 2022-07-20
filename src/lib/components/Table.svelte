@@ -7,7 +7,7 @@
   export let asc = true;
   export let count = 10;
   let paginate = [];
-  console.log(items);
+
   $: {
     items = items.sort((a, b) => {
       if (asc) return a[sort.property] > b[sort.property] ? 1 : -1;

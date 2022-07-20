@@ -21,18 +21,18 @@
   };
 </script>
 
-<section class="flex column gap">
+<section class="panel flex column gap">
   <h3>Pagos</h3>
   <div class="grid gap payments">
     <span>Total a pagar</span>
-    <b style="color: deepskyblue">{contract.price.toFixed(2)}</b>
+    <b style="color: deepskyblue">{contract.quote.total.toFixed(2)}</b>
     <span>Total pagado</span>
     <b style="color: orange">{contract.total.toFixed(2)}</b>
     <span>Restante</span>
-    <b style="color: tomato">{(contract.price - contract.total).toFixed(2)}</b>
+    <b style="color: tomato">{contract.rest.toFixed(2)}</b>
   </div>
   <button
-    disabled={contract.status !== 1}
+    disabled={contract.rest <= 0}
     class="inverted"
     on:click={(e) => (open = true)}>Agregar pago</button
   >

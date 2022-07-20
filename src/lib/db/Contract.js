@@ -1,26 +1,18 @@
 import mongoose from 'mongoose'
+import Order from './Order'
 import { assingStaticMethods } from './functions'
+import Counter from './Counter'
 
-"AIzaSyDrIqo0eM9GvFIn7Zbe3sgkXAG2g6706qs"
 const contractSchema = mongoose.Schema({
-  client: {
-    type: mongoose.Types.ObjectId,
-    requried: true,
-    ref: "Client"
-  },
-  expert: {
+  experts: [{
     type: mongoose.Types.ObjectId,
     required: true,
     ref: "User"
-  },
+  }],
   service: {
     type: mongoose.Types.ObjectId,
     required: true,
     ref: "Service"
-  },
-  price: {
-    type: Number,
-    required: true,
   },
   start: {
     type: Date,
@@ -30,25 +22,36 @@ const contractSchema = mongoose.Schema({
     type: Date,
     required: true
   },
-  balance: {
-    type: Number,
-    required: true
-  },
   status: {
     type: Number,
     required: true
-  },
-  direction: {
-    type: String,
-    requierd: true
   },
   coordinates: {
     lat: Number,
     lng: Number,
   },
   photos: [String],
-  payments: []
+  payments: [],
+  quote: {
+    type: mongoose.Types.ObjectId,
+    ref: "Quote",
+    required: true
+  },
+  code: {
+    type: Number,
+    required: true
+  }
+})
+contractSchema.pre("save", async function (next) {
+  if (!this.isNew) next()
+  let counter = await Counter.findOne({ model: "Contract" })
+  if (!counter) counter = await Counter.create({ model: "Contract", count: 1 })
+  this.code = counter.count
+  counter.count += 1
+  counter.save()
+  next()
 })
 const Contract = mongoose.model("Contract", contractSchema)
+
 assingStaticMethods(Contract)
 export default Contract

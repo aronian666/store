@@ -13,6 +13,7 @@
       name: "Resumen",
     },
     { href: "/contracts/services", name: "Servicios" },
+    { href: "/contracts/quotes", name: "Cotizaciones" },
   ];
 </script>
 

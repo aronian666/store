@@ -4,7 +4,7 @@
   export let current = new Date();
   export let contracts = [];
   const today = new Date();
-  const days = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
+  const days = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
   const assignLastDay = (current) => {
     return Array(3)
       .fill(0)
@@ -31,9 +31,9 @@
   };
   $: latest = assignLastDay(current);
   $: numbers = assignDays(current);
-  const hours = Array(24)
+  const hours = Array(14)
     .fill(0)
-    .map((a, b) => b);
+    .map((a, b) => b + 7);
   $: assignContract = (hour, day, month, year) => {
     return contracts.filter((contract) => {
       const serviceHour = contract.start.getHours();

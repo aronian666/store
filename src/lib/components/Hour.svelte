@@ -1,8 +1,10 @@
 <script>
   import Contract from "$lib/models/Contract";
+  import { getContext } from "svelte";
 
   import CreateContract from "./CreateContract.svelte";
   import Modal from "./Modal.svelte";
+  import { goto } from "$app/navigation";
 
   export let day;
   export let month;
@@ -11,8 +13,11 @@
   export let contracts = [];
   $: date = new Date(year, month, day, hour);
   let open = false;
+  const quote = getContext("quote");
   const newContract = (e) => {
-    open = true;
+    if (quote) return (open = true);
+    alert("No hay cotizacion seleccionada, por favor seleccione uno!");
+    goto(`/contracts/quotes`);
   };
   $: know =
     Date.now() > date.getTime() && Date.now() < date.getTime() + 1000 * 3600;

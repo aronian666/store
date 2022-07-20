@@ -35,11 +35,15 @@ export default class ActiveRecord {
     return data
   }
   static async del(record) {
-    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=DEL`, method: "post" }, record)
+    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=DELETE`, method: "post" }, record)
     return data
   }
   static async all() {
     const { data } = await this.get(`/${this.name.toLowerCase()}s.json`)
     return data
+  }
+  stringCode(prefijo) {
+    const zeros = 5 - this.code.toString().length
+    return `${prefijo}${"0".repeat(zeros)}${this.code}`
   }
 }
