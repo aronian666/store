@@ -9,4 +9,5 @@ export default class Quote extends Order {
     get assigned() {
         return this.contract ? "Assignado" : "Sin assignar"
     }
+    static modelName = "Quote";
 }

@@ -73,4 +73,5 @@ export default class Order extends ActiveRecord {
     const cartProducts = orders.map(order => order.cartProducts).flat()
     return CartProduct.groupProducts(cartProducts)
   }
+  static modelName = "Order"
 }
