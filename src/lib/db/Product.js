@@ -5,7 +5,7 @@ import Unit from './Unit'
 import Counter from './Counter'
 
 
-const productSchema = mongoose.Schema({
+export const productSchema = mongoose.Schema({
   name: {
     type: String,
     trim: true
@@ -31,7 +31,8 @@ const productSchema = mongoose.Schema({
 })
 productSchema.pre("save", async function (next) {
   if (!this.isNew) next()
-  const counter = await Counter.findOne({ model: "Product" })
+  let counter = await Counter.findOne({ model: "Product" })
+  if (!counter) counter = await Counter.create({ model: "Product", count: 1 })
   this.code = counter.count
   counter.count += 1
   counter.save()

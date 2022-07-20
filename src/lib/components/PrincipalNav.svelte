@@ -11,6 +11,11 @@
       icon: "article",
     },
     {
+      href: "/contracts",
+      text: "Contratos",
+      icon: "handshake",
+    },
+    {
       href: "/sales",
 
       text: "Vender",

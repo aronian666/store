@@ -4,7 +4,7 @@ export async function get() {
   const users = await User.find()
   return {
     status: 200,
-    body: { users }
+    body: users
   }
 }
 export async function post({ request }) {

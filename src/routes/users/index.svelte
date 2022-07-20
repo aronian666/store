@@ -9,7 +9,7 @@
     }
     const users = await response.json();
     return {
-      props: users,
+      props: { users },
     };
   }
 </script>

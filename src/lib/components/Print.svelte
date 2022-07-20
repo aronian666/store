@@ -8,6 +8,7 @@
     <picture>
       <img src="/logo.svg" alt="logo" />
     </picture>
+    <p><slot name="code" /></p>
     <p>Jr. Grau #160 - Ayaviri</p>
     <p>968248341 - 951522870</p>
   </div>
@@ -23,34 +24,38 @@
     </div>
   {/if}
   <div class="grid">
-    <table>
-      <thead>
-        <tr>
-          <th>CANT</th>
-          <th>UND</th>
-          <th>DESCRIPCIÓN</th>
-          <th>P. UNIT</th>
-          <th>P. TOTAL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each order?.cartProducts as cartProduct}
+    {#if $$slots.table}
+      <slot name="table" />
+    {:else}
+      <table>
+        <thead>
           <tr>
-            <td>{cartProduct.options.quantity}</td>
-            <td>{cartProduct.unitProduct.unit.shortName}</td>
-            <td>{cartProduct.showName}</td>
-            <td class="right">{cartProduct.finalUnitPrice}</td>
-            <td class="right">{cartProduct.total.toFixed(2)}</td>
+            <th>CANT</th>
+            <th>UND</th>
+            <th>DESCRIPCIÓN</th>
+            <th>P. UNIT</th>
+            <th>P. TOTAL</th>
           </tr>
-        {/each}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2">TOTAL A PAGAR</td>
-          <td colspan="2" class="right">{order.total.toFixed(2)}</td>
-        </tr>
-      </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          {#each order?.cartProducts as cartProduct}
+            <tr>
+              <td>{cartProduct.options.quantity}</td>
+              <td>{cartProduct.unitProduct.unit.shortName}</td>
+              <td>{cartProduct.showName}</td>
+              <td class="right">{cartProduct.finalUnitPrice}</td>
+              <td class="right">{cartProduct.total.toFixed(2)}</td>
+            </tr>
+          {/each}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">TOTAL A PAGAR</td>
+            <td colspan="2" class="right">{order.total.toFixed(2)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    {/if}
   </div>
   <div>
     {#if all}

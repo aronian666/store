@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const unitSchema = mongoose.Schema({
+export const unitSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,

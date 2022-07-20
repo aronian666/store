@@ -3,6 +3,7 @@
 
   import ActiveRecord from "$lib/models/ActiveRecord";
   import Client from "$lib/models/Client";
+  import Quote from "$lib/models/Quote";
 
   import { getContext, onMount } from "svelte";
   import Fieldset from "./Fieldset.svelte";
@@ -24,17 +25,21 @@
     order.set($order);
     goto(`/orders/${data._id}`);
   };
+  const submitQuote = async (e) => {
+    loading.set(true);
+    const quote = await Quote.create($order);
+    $order.cartProducts = [];
+    $order.client = new Client({});
+    order.set($order);
+    goto(`/contracts/quotes?quote=${quote._id}`);
+  };
   onMount(async () => {
     const { data, error } = await ActiveRecord.get("/clients.json");
     clients = data;
   });
 </script>
 
-<form
-  action="/orders/new.json"
-  method="post"
-  on:submit|preventDefault={submitOrder}
->
+<form action="/orders/new.json" method="post">
   <Fieldset
     title="Nombre del cliente"
     name="order[client][name]"
@@ -87,14 +92,28 @@
       </tbody>
     </table>
   </section>
-  <div class="grid auto-fit gap" style="--size: 150px">
+  <div class="grid auto-fit gap" style="--size: 100px">
     <button
       type="button"
-      class="inverted"
+      class="holed"
       on:click={(e) => (print = true)}
       style="--color: black">Imprimir</button
     >
-    <button type="submit" class="inverted" style="--color: red">Pagar</button>
+    <button
+      type="button"
+      on:click={submitQuote}
+      name="quote"
+      class="holed"
+      style="--color: deepskyblue">Cotizar</button
+    >
+    <button
+      type="button"
+      on:click={(e) =>
+        submitOrder({ target: { action: "/orders/new.json", method: "post" } })}
+      name="order"
+      class="holed"
+      style="--color: tomato">Pagar</button
+    >
   </div>
 </form>
 {#if print}
