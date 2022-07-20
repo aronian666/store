@@ -7,12 +7,16 @@ import Service from "$lib/db/Service";
 export async function get({ request = new Request() }) {
   const users = await User.find({})
   const services = await Service.find({})
-  let contracts = await Contract.find({})
-  contracts = contracts.map(contract => {
-    contract.service = services.find(service => contract.service.toString() === service._id.toString())
-    return contract
-  })
-
+  let contracts = []
+  try {
+    contracts = await Contract.find({})
+    contracts = contracts.map(contract => {
+      contract.service = services.find(service => contract.service.toString() === service._id.toString())
+      return contract
+    })
+  } catch (error) {
+    console.log(error)
+  }
   return { body: { contracts, users, services } }
 }
 
