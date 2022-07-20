@@ -7,7 +7,6 @@ const contractSchema = mongoose.Schema({
   experts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User"
     }
   ],
