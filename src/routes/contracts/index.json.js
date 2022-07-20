@@ -7,15 +7,15 @@ import User from "$lib/db/User";
 export async function get({ request = new Request() }) {
   const users = await User.find()
   const services = await Service.find()
-  let contracts = await Contract.find()
+  /*let contracts = await Contract.find()
   console.log(User, Service, Contract)
   contracts = contracts.map(contract => {
     console.log(services, "servicios")
     contract.service = services.find(service => contract.service.toString() === service._id.toString())
     return contract
-  })
+  }) */
 
-  return { body: { contracts, users, services } }
+  return { body: { contracts: [], users, services } }
 }
 
 
