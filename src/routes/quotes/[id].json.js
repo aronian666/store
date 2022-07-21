@@ -5,12 +5,12 @@ import Quote from "$lib/db/Quote";
 import Unit from "$lib/db/Unit";
 import User from "$lib/db/User";
 
-export const get = async (props) => {
+export const get = async ({ params }) => {
     const units = await Unit.find({})
-    const { body: quote } = await Quote.get(props, [{ model: Client, property: "client" }, { model: CartProduct, property: "cartProducts", type: "array", properties: [{ model: Product, property: "product" }] }, { model: User, property: "employee" }])
-    quote.cartProducts.forEach(cartProduct => {
-        cartProduct.unitProduct.unit = units.find(unit => unit._id.toString() === cartProduct.unitProduct.unit.toString())
-    })
+    const quote = await Quote.findById(params.id)
+    quote.employee = await User.findById(quote.employee)
+    quote.client = await Client.findById(quote.client)
+    quote.cartProducts = await CartProduct.findAll({ quote: quote._id })
     return { body: quote }
 };
 export const del = (props) => Quote.del(props)
