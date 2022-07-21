@@ -5,4 +5,5 @@ export default class Service extends ActiveRecord {
     super(_id)
     this.name = name
   }
+  static modelName = "Service"
 }

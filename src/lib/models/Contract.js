@@ -42,4 +42,5 @@ export default class Contract extends ActiveRecord {
   get rest() {
     return this.quote.total - this.total
   }
+  static modelName = "Contract"
 }
