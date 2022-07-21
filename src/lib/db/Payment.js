@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const paymentSchema = mongoose.Schema({
   amount: { type: Number },
   contract: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "Contract",
   }
 }, { timestamps: true })
