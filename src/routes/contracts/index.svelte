@@ -1,11 +1,21 @@
 <script context="module">
   export async function load({ fetch, url }) {
     const response = await fetch("/contracts.json");
-    const contracts = await response.json();
+    const responseServices = await fetch("/services.json");
+    const services = await responseServices.json();
+    const usersResponse = await fetch("/users.json");
+    const users = await usersResponse.json();
+    let contracts = await response.json();
+    contracts = contracts.map((contract) => {
+      contract.service = services.find(
+        (service) => contract.service.toString() === service._id.toString()
+      );
+      return contract;
+    });
     const id = url.searchParams.get("quote");
     const responseQuote = id && (await fetch(`/quotes/${id}.json`));
     const quote = responseQuote && (await responseQuote.json());
-    return { props: { ...contracts, quote } };
+    return { props: { contracts, quote, services, users } };
   }
 </script>
 

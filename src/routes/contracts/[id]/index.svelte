@@ -1,7 +1,12 @@
 <script context="module">
   export async function load({ fetch, params }) {
     const response = await fetch(`/contracts/${params.id}.json`);
+    const servicesResponse = await fetch("/services.json");
+    const services = await servicesResponse.json();
     const contract = await response.json();
+    contract.service = services.find(
+      (service) => contract.service.toString() === service._id.toString()
+    );
     return { props: { contract } };
   }
 </script>
