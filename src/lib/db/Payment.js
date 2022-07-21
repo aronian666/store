@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { assingStaticMethods } from './functions'
+
 const paymentSchema = mongoose.Schema({
   amount: { type: Number, required: true },
   contract: {
@@ -8,6 +8,5 @@ const paymentSchema = mongoose.Schema({
     required: true
   }
 }, { timestamps: true })
-const Payment = mongoose.model("Payment", paymentSchema)
-assingStaticMethods(Payment)
+let Payment = mongoose.model("Payment", paymentSchema)
 export default Payment

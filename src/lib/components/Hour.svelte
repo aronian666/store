@@ -23,12 +23,20 @@
     Date.now() > date.getTime() && Date.now() < date.getTime() + 1000 * 3600;
 </script>
 
-<div class="contract" on:click={newContract}>
+<div class="father">
+  <div class="contract" on:click={newContract}>
+    {#if know}
+      <div
+        class="know"
+        style={`--position: ${(new Date().getMinutes() / 60) * 100}%`}
+      />
+    {/if}
+  </div>
   {#each contracts as contract}
     <a
       href={`/contracts/${contract._id}`}
+      sveltekit:prefetch
       class="flex column wrap"
-      on:click|stopPropagation={(e) => console.log("raton")}
       style={`--start: ${(contract.start.getMinutes() / 60) * 50}%; --end: ${
         (Contract.getMinutes(contract.start, contract.end) / 60) * 100
       }%; --color: ${contract.statusColor}`}
@@ -41,18 +49,15 @@
       </span>
     </a>
   {/each}
-  {#if know}
-    <div
-      class="know"
-      style={`--position: ${(new Date().getMinutes() / 60) * 100}%`}
-    />
-  {/if}
 </div>
 {#if open}
   <Modal handler={(e) => (open = false)}><CreateContract {date} /></Modal>
 {/if}
 
 <style>
+  .father {
+    position: relative;
+  }
   .know {
     background-color: red;
     height: 2px;
@@ -64,7 +69,6 @@
     aspect-ratio: 3;
     background-color: white;
     cursor: pointer;
-    position: relative;
   }
   .contract:hover {
     background-color: #eee;

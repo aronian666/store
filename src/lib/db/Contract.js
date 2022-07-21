@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { assingStaticMethods } from './functions'
+
 import Counter from './Counter'
 
 const contractSchema = mongoose.Schema({
@@ -53,5 +53,4 @@ contractSchema.pre("save", async function (next) {
 })
 const Contract = mongoose.model("Contract", contractSchema)
 
-assingStaticMethods(Contract)
 export default Contract

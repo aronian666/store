@@ -4,8 +4,8 @@ import User from "$lib/db/User";
 import CartProduct from "$lib/db/CartProduct";
 import Product from "$lib/db/Product";
 import Unit from "$lib/db/Unit";
-
-
+import { assingStaticMethods } from "$lib/db/functions"
+Quote = assingStaticMethods(Quote)
 export async function post({ request }) {
     const quoteObject = await request.json()
     let quote
