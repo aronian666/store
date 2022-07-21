@@ -13,12 +13,8 @@
     import Quote from "$lib/models/Quote";
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
-
     export let quotes = [];
-
     quotes = quotes.map((quote) => new Quote(quote));
-
-    console.log(quotes);
     let searched = [];
     const quoteId = $page.url.searchParams.get("quote");
     let modal = quotes.find((quote) => quote._id == quoteId);

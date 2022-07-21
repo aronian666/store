@@ -5,12 +5,12 @@ import Counter from './Counter'
 
 const contractSchema = mongoose.Schema({
   experts: [{
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
     ref: "User"
   }],
   service: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
     ref: "Service"
   },
@@ -33,7 +33,7 @@ const contractSchema = mongoose.Schema({
   photos: [String],
   payments: [],
   quote: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "Quote",
     required: true
   },

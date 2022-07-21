@@ -6,16 +6,16 @@ import Product from './Product'
 import { assingStaticMethods } from './functions'
 const quoteSchema = new mongoose.Schema({
     employee: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "User"
     },
     client: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Client"
     },
     cartProducts: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: mongoose.SchemaTypes.ObjectId,
             ref: "CartProduct"
         }
     ],
@@ -24,7 +24,7 @@ const quoteSchema = new mongoose.Schema({
         unique: true
     },
     contract: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Contract"
     }
 }, { timestamps: true })

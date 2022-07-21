@@ -3,7 +3,7 @@ import { assingStaticMethods } from './functions'
 const paymentSchema = mongoose.Schema({
   amount: { type: Number, required: true },
   contract: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "Contract",
     required: true
   }

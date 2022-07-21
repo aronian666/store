@@ -28,7 +28,6 @@ async function post({ request = new Request() }) {
 }
 async function put({ request = new Request() }) {
   const data = await request.json()
-  console.log("para actualizar", data)
   const record = await this.findByIdAndUpdate(data._id, data)
   return { body: record }
 }
