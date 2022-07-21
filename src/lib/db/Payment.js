@@ -1,12 +1,10 @@
 import mongoose from 'mongoose'
 
 const paymentSchema = mongoose.Schema({
-  amount: { type: Number, required: true },
+  amount: { type: Number },
   contract: {
     type: mongoose.Types.ObjectId,
     ref: "Contract",
-    required: true
   }
 }, { timestamps: true })
-let Payment = mongoose.model("Payment", paymentSchema)
-export default Payment
+export default mongoose.model("Payment", paymentSchema)

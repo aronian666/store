@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import Service from './Service'
 
 import Counter from './Counter'
 

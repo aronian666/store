@@ -11,6 +11,6 @@ export async function get({ params }) {
   contract.quote.client = await Client.findById(contract.quote.client)
   contract.quote.employee = await User.findById(contract.quote.employee)
   contract.quote.cartProducts = await CartProduct.findAll({ quote: contract.quote._id })
-  contract.payments = await Payment.find({ contract: contract._id })
+  //contract.payments = await Payment.find({ contract: contract._id })
   return { body: contract }
 } 
