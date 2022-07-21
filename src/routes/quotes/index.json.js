@@ -1,11 +1,11 @@
 import Client from "$lib/db/Client";
-import Quote from "$lib/db/Quote";
+import Quote1 from "$lib/db/Quote";
 import User from "$lib/db/User";
 import CartProduct from "$lib/db/CartProduct";
 import Product from "$lib/db/Product";
 import Unit from "$lib/db/Unit";
 import { assingStaticMethods } from "$lib/db/functions"
-Quote = assingStaticMethods(Quote)
+const Quote = assingStaticMethods(Quote1)
 export async function post({ request }) {
     const quoteObject = await request.json()
     let quote
