@@ -6,7 +6,7 @@ const serviceSchema = mongoose.Schema({
     required: true,
   }
 })
-const Service = mongoose.model('Service', serviceSchema)
 
-export default Service
+
+export default mongoose.model('Service', serviceSchema)
 
