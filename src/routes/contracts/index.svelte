@@ -1,21 +1,13 @@
 <script context="module">
   export async function load({ fetch, url }) {
     const response = await fetch("/contracts.json");
-    const responseServices = await fetch("/services.json");
-    const services = await responseServices.json();
     const usersResponse = await fetch("/users.json");
     const users = await usersResponse.json();
     let contracts = await response.json();
-    contracts = contracts.map((contract) => {
-      contract.service = services.find(
-        (service) => contract.service.toString() === service._id.toString()
-      );
-      return contract;
-    });
     const id = url.searchParams.get("quote");
     const responseQuote = id && (await fetch(`/quotes/${id}.json`));
     const quote = responseQuote && (await responseQuote.json());
-    return { props: { contracts, quote, services, users } };
+    return { props: { contracts, quote, users } };
   }
 </script>
 
@@ -25,14 +17,26 @@
   import Week from "$lib/components/Week.svelte";
   import Contract from "$lib/models/Contract";
   import Quote from "$lib/models/Quote";
+  import Service from "$lib/models/Service";
 
-  import { setContext } from "svelte";
+  import { onMount, setContext } from "svelte";
 
   export let contracts = [];
   export let clients = [];
   export let users = [];
-  export let services = [];
   export let quote;
+  let services = [];
+  onMount(async () => {
+    const response = await fetch("/services.json");
+    services = await response.json();
+    contracts = contracts.map((contract) => {
+      contract.service = services.find(
+        (service) => contract.service === service._id
+      );
+      contract.service = new Service(contract.service);
+      return contract;
+    });
+  });
   quote = quote && new Quote(quote);
   contracts = contracts.map((contract) => new Contract(contract));
   const addContract = (contract) => {

@@ -1,12 +1,7 @@
 <script context="module">
   export async function load({ fetch, params }) {
     const response = await fetch(`/contracts/${params.id}.json`);
-    const servicesResponse = await fetch("/services.json");
-    const services = await servicesResponse.json();
     const contract = await response.json();
-    contract.service = services.find(
-      (service) => contract.service.toString() === service._id.toString()
-    );
     return { props: { contract } };
   }
 </script>
@@ -21,11 +16,22 @@
   import Table from "$lib/components/Table.svelte";
   import Client from "$lib/db/Client";
   import Contract from "$lib/models/Contract";
+  import Service from "$lib/models/Service";
   import { storage } from "$lib/scripts/firebase";
   import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+  import { onMount } from "svelte";
   export let contract = new Contract({});
   contract = new Contract(contract);
   let submitPhoto = false;
+  onMount(async () => {
+    const response = await fetch("/services.json");
+    const services = await response.json();
+    contract.service = services.find(
+      (service) => contract.service === service._id
+    );
+    contract.service = new Service(contract.service);
+    contract = contract;
+  });
   const addFile = async (file) => {
     const reference = ref(storage, `contracts/${contract._id}/${file.name}`);
     const promise = await uploadBytes(reference, file);
