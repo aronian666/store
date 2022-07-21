@@ -27,19 +27,19 @@ export default class ActiveRecord {
     return array.find(item => properties.reduce((init, property) => init || (reduceString(item[property]) === reduceString(string)), false))
   }
   static async create(record) {
-    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json`, method: "post" }, record)
+    const { data } = await this.send({ action: `/${this.modelName.toLowerCase()}s.json`, method: "post" }, record)
     return data
   }
   static async update(record) {
-    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=PUT`, method: "post" }, record)
+    const { data } = await this.send({ action: `/${this.modelName.toLowerCase()}s.json?_method=PUT`, method: "post" }, record)
     return data
   }
   static async del(record) {
-    const { data } = await this.send({ action: `/${this.name.toLowerCase()}s.json?_method=DELETE`, method: "post" }, record)
+    const { data } = await this.send({ action: `/${this.modelName.toLowerCase()}s.json?_method=DELETE`, method: "post" }, record)
     return data
   }
   static async all() {
-    const { data } = await this.get(`/${this.name.toLowerCase()}s.json`)
+    const { data } = await this.get(`/${this.modelName.toLowerCase()}s.json`)
     return data
   }
   stringCode(prefijo) {

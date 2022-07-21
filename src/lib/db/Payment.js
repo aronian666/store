@@ -1,13 +1,10 @@
 import mongoose from 'mongoose'
-import { assingStaticMethods } from './functions'
+
 const paymentSchema = mongoose.Schema({
-  amount: { type: Number, required: true },
+  amount: { type: Number },
   contract: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Contract",
-    required: true
   }
 }, { timestamps: true })
-const Payment = mongoose.model("Payment", paymentSchema)
-assingStaticMethods(Payment)
-export default Payment
+export default mongoose.model("Payment", paymentSchema)

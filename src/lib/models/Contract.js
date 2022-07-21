@@ -11,7 +11,8 @@ export default class Contract extends ActiveRecord {
     this.client = new Client(client);
     this.experts = experts.map(e => new User(e));
     this.status = status;
-    this.service = new Service(service);
+    if (typeof service === "object") this.service = new Service(service);
+    else this.service = service;
     this.start = new Date(start);
     this.end = new Date(end);
     this.direction = direction;
@@ -42,4 +43,5 @@ export default class Contract extends ActiveRecord {
   get rest() {
     return this.quote.total - this.total
   }
+  static modelName = "Contract"
 }

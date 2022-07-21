@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
-import { assingStaticMethods } from "./functions";
+
 const serviceSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  }
+  name: String
 })
-const Service = mongoose.model('Service', serviceSchema)
-assingStaticMethods(Service)
-export default Service
+
+
+export default mongoose.model('Service', serviceSchema)
 

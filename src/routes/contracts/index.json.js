@@ -1,19 +1,12 @@
 import Client from "$lib/db/Client";
 import Contract from "$lib/db/Contract";
 import Payment from "$lib/db/Payment";
-import Service from "$lib/db/Service";
 import User from "$lib/db/User";
+import Service from "$lib/db/Service";
 
 export async function get({ request = new Request() }) {
-  const users = await User.find()
-  const services = await Service.find()
   let contracts = await Contract.find()
-  contracts = contracts.map(contract => {
-    contract.service = services.find(service => contract.service.toString() === service._id.toString())
-    return contract
-  })
-
-  return { body: { contracts, users, services } }
+  return { body: contracts }
 }
 
 

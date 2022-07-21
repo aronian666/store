@@ -1,6 +1,12 @@
 import Payment from "$lib/db/Payment"
 
-export const get = () => Payment.getAll()
-export const post = (props) => Payment.post(props)
-export const put = (props) => Payment.put(props)
-export const del = (props) => Payment.del(props)
+
+export const get = async ({ url = new URL() }) => {
+    const query = Object.fromEntries(url.searchParams)
+    let payments = await Payment.find(query)
+    return { body: payments }
+}
+export const post = async ({ request = new Request() }) => {
+    const record = await Payment.create(await request.json())
+    return { body: record }
+}

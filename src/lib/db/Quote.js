@@ -3,7 +3,7 @@ import CartProduct from './CartProduct'
 import Client from './Client'
 import Counter from './Counter'
 import Product from './Product'
-import { assingStaticMethods } from './functions'
+
 const quoteSchema = new mongoose.Schema({
     employee: {
         type: mongoose.SchemaTypes.ObjectId,
@@ -74,7 +74,7 @@ Quote.updateAll = async function (quoteObject) {
     quote.save()
     return quote
 }
-assingStaticMethods(Quote)
+
 
 
 export default Quote

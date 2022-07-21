@@ -16,11 +16,30 @@
   import Table from "$lib/components/Table.svelte";
   import Client from "$lib/db/Client";
   import Contract from "$lib/models/Contract";
+  import Service from "$lib/models/Service";
+  import P from "$lib/models/Payment";
   import { storage } from "$lib/scripts/firebase";
   import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+  import { onMount } from "svelte";
   export let contract = new Contract({});
   contract = new Contract(contract);
   let submitPhoto = false;
+  onMount(async () => {
+    const response = await fetch("/services.json");
+    const services = await response.json();
+    contract.service = services.find(
+      (service) => contract.service === service._id
+    );
+    contract.service = new Service(contract.service);
+    const paymentResponse = await fetch(
+      `/payments.json?contract=${contract._id}`
+    );
+    const payments = await paymentResponse.json();
+    contract.payments = payments.map((payment) => {
+      return new P(payment);
+    });
+    contract = contract;
+  });
   const addFile = async (file) => {
     const reference = ref(storage, `contracts/${contract._id}/${file.name}`);
     const promise = await uploadBytes(reference, file);

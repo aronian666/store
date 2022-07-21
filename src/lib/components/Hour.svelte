@@ -36,6 +36,7 @@
     <a
       sveltekit:prefetch
       href={`/contracts/${contract._id}`}
+      sveltekit:prefetch
       class="flex column wrap"
       style={`--start: ${(contract.start.getMinutes() / 60) * 50}%; --end: ${
         (Contract.getMinutes(contract.start, contract.end) / 60) * 100

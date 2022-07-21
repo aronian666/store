@@ -6,4 +6,5 @@ export default class Payment extends ActiveRecord {
     this.amount = amount
     this.createdAt = new Date(createdAt)
   }
+  static modelName = "Payment"
 }
