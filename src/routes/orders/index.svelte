@@ -34,6 +34,7 @@
   const changeDate = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
+    endDate.setHours(23, 59, 59);
     goto(`/orders?start=${startDate.getTime()}&end=${endDate.getTime()}`);
   };
 </script>

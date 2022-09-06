@@ -21,6 +21,7 @@
   const changeDate = async (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
+    endDate.setHours(23, 59, 59);
     const request = `?start=${startDate.getTime()}&end=${endDate.getTime()}`;
     const { data } = await ActiveRecord.get(`/orders.json${request}`);
     return data;
