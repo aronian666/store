@@ -51,7 +51,7 @@ export default class CartProduct {
       if (this.unitProduct.unit.measures[measure]) measures.push(this.options.measures[measure])
     }
     const measuresString = measures.length ? "(" + measures.join(" X ") + ")" : ""
-    return `${this.product.name} ${measuresString}`
+    return `${this.product.name.replace(/([(][^)]*[)])/, "")} ${measuresString}`
   }
   get name() {
     return this.product.name
