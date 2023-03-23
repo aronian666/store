@@ -51,10 +51,10 @@ export default class CartProduct {
       if (this.unitProduct.unit.measures[measure]) measures.push(this.options.measures[measure])
     }
     const measuresString = measures.length ? "(" + measures.join(" X ") + ")" : ""
-    return `${this.product.name.replace(/([(][^)]*[)])/, "")} ${measuresString}`
+    return `${this.product?.name.replace(/([(][^)]*[)])/, "")} ${measuresString}`
   }
   get name() {
-    return this.product.name
+    return this.product?.name
   }
   static totalSell(cartProducts) {
     return parseFloat(cartProducts.reduce((a, b) => a + b.total, 0).toFixed(2))
